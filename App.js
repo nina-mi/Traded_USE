@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View} from "react-native";
+import { StyleSheet, View, Text} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -7,6 +7,8 @@ import ImageViewer from './components/ImageViewer';
 import Button from './components/Button';
 import IntroScreen from './pages/IntroScreen';
 import SignUpScreen from './pages/SignUpScreen';
+import LogInScreen  from "./pages/LogInScreen";
+import WelcomeScreen from "./pages/WelcomeScreen";
 
 const PlaceholderImage = require("./assets/images/fast_fashion.jpeg");
 const Stack = createNativeStackNavigator();
@@ -45,9 +47,13 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="">
-        <Stack.Screen name="Hom" component={IntroScreen} />
-        <Stack.Screen name="Details" component={SignUpScreen} />
+      <Stack.Navigator initialRouteName="Intro">
+      {/* this would delete the header in all pages */}
+      {/* screenOptions = {{headerShown: false} } */}
+        <Stack.Screen name="Intro" component={IntroScreen} options={{headerShown: false}} />
+        <Stack.Screen name="Sign up" component={SignUpScreen} />
+        <Stack.Screen name="Log in" component={LogInScreen} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
