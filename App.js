@@ -2,9 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Text} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase"
+// import { firebaseConfig } from "../firebase.config"
 
+// components
 import ImageViewer from './components/ImageViewer';
 import Button from './components/Button';
+
+// screens
 import IntroScreen from './pages/IntroScreen';
 import SignUpScreen from './pages/SignUpScreen';
 import LogInScreen  from "./pages/LogInScreen";
