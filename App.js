@@ -14,6 +14,7 @@ import IntroScreen from './pages/IntroScreen';
 import SignUpScreen from './pages/SignUpScreen';
 import LogInScreen  from "./pages/LogInScreen";
 import WelcomeScreen from "./pages/WelcomeScreen";
+import AddProfileInfoScreen from './pages/AddProfileInfoScreen';
 
 const PlaceholderImage = require("./assets/images/fast_fashion.jpeg");
 const Stack = createNativeStackNavigator();
@@ -59,6 +60,7 @@ export default function App() {
         <Stack.Screen name="Sign up" component={SignUpScreen} />
         <Stack.Screen name="Log in" component={LogInScreen} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false}} />
+        <Stack.Screen name="AddProfileInfo" component={AddProfileInfoScreen} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

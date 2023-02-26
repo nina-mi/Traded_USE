@@ -1,9 +1,9 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, Button, Alert} from "react-native";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebase.config"
+import { firebaseConfig } from "../firebase.config";
 import React from "react"
 
 // import Button from '../components/Button';
@@ -26,16 +26,17 @@ export default function SignUpScreen({ navigation }) {
             index: 0,
             routes: [
                 {
-                    name: 'Welcome',
+                    // name: 'Welcome',
+                    name: "AddProfileInfo",
                 },
             
             ],
         })
       )
     })
-    .catch(error => {
-      console.log(error)
-      Alert.alert(error.messsage)
+    .catch((error) => {
+      console.log(error);
+      Alert.alert(error.messsage);
     })
   }
 
@@ -46,11 +47,11 @@ export default function SignUpScreen({ navigation }) {
             {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
             <View>
               <Text>Email</Text>
-              <TextInput onChangeText={(text) => setEmail(text)} placeholder="user@mail.com"/>
+              <TextInput label={"Email"} onChangeText={(text) => setEmail(text)} placeholder="user@mail.com"/>
             </View>
             <View>
               <Text>Password</Text>
-              <TextInput onChangeText={(text) => setPassword(text)} placeholder="password123"/>
+              <TextInput label={"Password"} onChangeText={(text) => setPassword(text)} placeholder="password123"/>
             </View>
             <Button
                 title="Sign up"
