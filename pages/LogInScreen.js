@@ -24,7 +24,7 @@ export default function LogInScreen({ navigation }) {
             index: 0,
             routes: [
                 {
-                    name: 'Welcome',
+                    name: "Welcome back",
                 },
             
             ],
