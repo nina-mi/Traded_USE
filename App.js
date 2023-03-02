@@ -52,42 +52,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function Page1({ navigation }){
-  return (
-    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
-      <Text>Page1</Text>
-      <Button
-            title="Go to next page"
-            onPress={() => navigation.navigate("Page2Stack")}
-            />
-    </View>
-  );
-}
-
-function Page2Stack() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Page2A" component={Page2A}/>
-      <Tab.Screen name="Page2B" component={Page2B}/>
-    </Tab.Navigator>
-  );
-}
-
-function Page2A() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
-      <Text>Page A</Text>
-    </View>
-  );
-}
-
-function Page2B() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center',  alignItems: 'center' }}>
-      <Text>Page B</Text>
-    </View>
-  );
-}
 
 export default function App() {
   return (
@@ -106,14 +70,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-// export default function App() {
-//   return(
-//     <NavigationContainer>
-//       <Stack.Navigator initialRouteName="Page1">
-//         <Stack.Screen name="Page1" component={Page1}/>
-//         <Stack.Screen name="Page2Stack" component={Page2Stack}/>
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   )
-// }
