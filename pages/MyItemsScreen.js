@@ -4,6 +4,8 @@ import { StyleSheet, View, Text} from "react-native";
 import Button from '../components/Button';
 import { getAuth } from "firebase/auth";
 
+// style
+import styles from '../DefinedStyles';
 
 export default function MyItemsScreen({ navigation }) {
   const auth = getAuth();

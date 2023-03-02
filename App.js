@@ -17,6 +17,9 @@ import AddProfileInfoScreen from './pages/AddProfileInfoScreen';
 import WelcomeBackScreen from './pages/WelcomeBackScreen';
 import TabStackScreen from './pages/TabStackScreen';
 
+// style
+import styles from './DefinedStyles';
+
 
 const PlaceholderImage = require("./assets/images/fast_fashion.jpeg");
 const Stack = createNativeStackNavigator();
@@ -36,21 +39,6 @@ const Stack = createNativeStackNavigator();
 //   );
 // }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-  },
-  imageContainer: {
-    flex: 1,
-    paddingTop: 58,
-  },
-  footerContainer: {
-    flex: 1 / 3,
-    alignItems: 'center',
-  },
-});
 
 
 export default function App() {

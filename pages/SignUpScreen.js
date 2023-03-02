@@ -6,7 +6,8 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
 import React from "react"
 
-// import Button from '../components/Button';
+// style
+import styles from '../DefinedStyles';
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = React.useState('');

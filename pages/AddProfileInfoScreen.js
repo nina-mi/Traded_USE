@@ -4,6 +4,9 @@ import { StyleSheet, View, Text, TextInput, Button, Alert} from "react-native";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import React from "react";
 
+// style
+import styles from '../DefinedStyles';
+
 export default function AddProfileInfoScreen({ navigation }) {
     const auth = getAuth();
     const [username, setUsername] = React.useState('');

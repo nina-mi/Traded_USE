@@ -3,10 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, View, Text, Button} from "react-native";
 //import Button from '../components/Button';
 
+// style
+import { styles } from '../DefinedStyles';
+
 export default function IntroScreen({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>TRADED</Text>
+        <View style={styles.container}>
+            <Text style = {styles.title}>TRADED</Text>
             {/* <Text>Join the movement of sustainable fashion and make a real impact on the environment by trading your clothes</Text> */}
             {/* <Text>Stop contributing to the cycle of fast fashion and consumerism</Text> */}
             <Text>Join the movement of sustainable fashion and make a real impact on the environment</Text>
