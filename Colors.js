@@ -5,4 +5,7 @@ export const colors = {
     app_white: '#FFFFFF',
     app_light_green: '#AEEABF',
     app_light_yellow: '#FEB685',
+    // perhaps it would be a good idea to define primary_color, secondary_color,
+    // text_color, etc. instead of declaring the colors individually like I did
+    // do whatever you want
 }
