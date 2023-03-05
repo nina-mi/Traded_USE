@@ -1,4 +1,4 @@
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import { colors } from "./Colors";
 
 export const styles = StyleSheet.create({
@@ -26,7 +26,23 @@ export const styles = StyleSheet.create({
         fontSize: 25,
         alignItems: 'center',
         fontWeight: 'bold',
-        color: colors.app_green,
+        color: colors.app_evergreen,
+    },
+    PrimaryButton: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: colors.app_evergreen,
+    },
+    ButtonText: {
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: colors.app_evergreen_brighter,
     },
     // TODO: add styles for the rest of the components, ie primary button,
     // secondary button, text input, display text, headline, title, label, body
