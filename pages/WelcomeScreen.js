@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Button} from "react-native";
 import { getAuth } from "firebase/auth";
 
 // style
-import styles from '../DefinedStyles';
+import { styles } from '../DefinedStyles';
 
 export default function WelcomeScreen({ navigation }) {
   const auth = getAuth();

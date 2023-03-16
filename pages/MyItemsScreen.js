@@ -1,11 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text} from "react-native";
+import { StyleSheet, View, Text, Pressable} from "react-native";
 import Button from '../components/Button';
 import { getAuth } from "firebase/auth";
 
 // style
-import styles from '../DefinedStyles';
+import { styles } from '../DefinedStyles';
 
 export default function MyItemsScreen({ navigation }) {
   const auth = getAuth();
@@ -13,8 +13,13 @@ export default function MyItemsScreen({ navigation }) {
   // if (user) {
   // }
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>My items</Text>
+    <View style={styles.container}>
+      <Pressable 
+        style = {styles.PrimaryButton} 
+        onPress={() => navigation.navigate('Add item')}>
+        <Text style = {styles.ButtonText}>Add item</Text>
+      </Pressable>
     </View>
+
   );
 }

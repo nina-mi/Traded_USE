@@ -4,10 +4,10 @@ import { StyleSheet, View, Text, TextInput, Button, Alert} from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
-import React from "react"
+import React from "react";
 
 // style
-import styles from '../DefinedStyles';
+import { styles } from '../DefinedStyles';
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = React.useState('');

@@ -7,7 +7,7 @@ import { firebaseConfig } from "../firebase.config"
 import React from "react";
 
 // style
-import styles from '../DefinedStyles';
+import { styles } from '../DefinedStyles';
 
 export default function LogInScreen({ navigation }) {
   const [email, setEmail] = React.useState('');

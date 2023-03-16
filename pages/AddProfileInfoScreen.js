@@ -5,7 +5,7 @@ import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import React from "react";
 
 // style
-import styles from '../DefinedStyles';
+import { styles } from '../DefinedStyles';
 
 export default function AddProfileInfoScreen({ navigation }) {
     const auth = getAuth();

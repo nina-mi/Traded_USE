@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import { getAuth } from "firebase/auth";
 
 // style
-import styles from '../DefinedStyles';
+import { styles } from '../DefinedStyles';
 
 export default function BrowseScreen({ navigation }) {
   const auth = getAuth();
