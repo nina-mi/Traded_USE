@@ -1,23 +1,61 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Button, Alert} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image} from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
 import React from "react";
+import * as ImagePicker from 'expo-image-picker';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
 
 // style
 import { styles } from '../DefinedStyles';
 
 export default function AddItemScreen({ navigation }) {
   const [itemColor, setItemColor] = React.useState('');
-  const [itemPicture, setItemPicture] = React.useState('');
   const [itemSize, setItemSize] = React.useState('');
   const [itemType, setItemType] = React.useState('');
+  const [image, setImage] = React.useState(null);
+  const [uploading, setUploading] = React.useState(false);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [3, 4],
+      quality: 1,   // 0 means compress for small size, 1 means compress for maximum quality
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   // + add user id to the database => auth.currentUser.uid
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+
+  const blurhash =
+  '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
+
+
+  const showImage = () => {
+    if (image == null) {
+      return       <Image
+      source="https://picsum.photos/seed/696/3000/2000"
+      placeholder={blurhash}
+      contentFit="cover"
+      transition={1000}
+    />}
+      //<Image source={{ uri: '../assets/images/fast_fashion.jpeg' }} style={{ width: 3*50, height: 4*50 }} />}
+    else {
+      return <Image source={{ uri: image }} style={{ width: 3*50, height: 4*50 }} />
+    }
+  }
 
   const handleAddItem = () => {
   }
@@ -38,10 +76,17 @@ export default function AddItemScreen({ navigation }) {
               <TextInput label={"Item type"} onChangeText={(text) => setItemType(text)} placeholder="dress"/>
             </View>
             <Text>Upload item picture</Text>
-            <Button
-                title="Add item"
-                onPress={ handleAddItem }
-            />
+            <Pressable 
+                style = {styles.PrimaryButton} 
+                onPress={ pickImage}>
+                <Text style = {styles.ButtonText}>Browse gallery</Text>
+            </Pressable>
+            {showImage()}
+            <Pressable 
+                style = {styles.PrimaryButton} 
+                onPress={ handleAddItem }>
+                <Text style = {styles.ButtonText}>Add item</Text>
+            </Pressable>
         </View>
     );
   }

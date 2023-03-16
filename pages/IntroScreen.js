@@ -15,7 +15,6 @@ export default function IntroScreen({ navigation }) {
             <Text>Join the movement of sustainable fashion and make a real impact on the environment</Text>
             
             <Pressable 
-                
                 style = {styles.PrimaryButton} 
                 onPress={() => navigation.navigate('Sign up')}>
                 <Text style = {styles.ButtonText}>Sign up</Text>

@@ -35,9 +35,9 @@ export default function SignUpScreen({ navigation }) {
         })
       )
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
-      Alert.alert(error.messsage);
+      Alert.alert(error.message);
     })
   }
 

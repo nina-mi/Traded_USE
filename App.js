@@ -3,6 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Text, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import to get rid of the annoying yellow warnings in the console (and the app, hopefully)
+import { LogBox } from 'react-native';
 
 // components
 import ImageViewer from './components/ImageViewer';
@@ -21,8 +23,11 @@ import TabStackScreen from './pages/TabStackScreen';
 import styles from './DefinedStyles';
 
 
-const PlaceholderImage = require("./assets/images/fast_fashion.jpeg");
+// const PlaceholderImage = require("./assets/images/fast_fashion.jpeg");
 const Stack = createNativeStackNavigator();
+
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
 
 // export default function App() {
 //   return (
