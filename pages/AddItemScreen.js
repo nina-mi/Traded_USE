@@ -39,18 +39,13 @@ export default function AddItemScreen({ navigation }) {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  const blurhash =
-  '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
-
-
   const showImage = () => {
     if (image == null) {
-      return       <Image
-      source="https://picsum.photos/seed/696/3000/2000"
-      placeholder={blurhash}
-      contentFit="cover"
-      transition={1000}
-    />}
+      return <Image
+        source={require('../assets/images/woocommerce-placeholder.png')}
+        transition={1000} style={{ width: 3*50, height: 4*50 }}
+      />
+    }
       //<Image source={{ uri: '../assets/images/fast_fashion.jpeg' }} style={{ width: 3*50, height: 4*50 }} />}
     else {
       return <Image source={{ uri: image }} style={{ width: 3*50, height: 4*50 }} />
