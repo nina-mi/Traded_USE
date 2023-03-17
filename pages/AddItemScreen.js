@@ -18,10 +18,13 @@ export default function AddItemScreen({ navigation }) {
   const [itemType, setItemType] = React.useState('');
   const [image, setImage] = React.useState(null);
   const [uploading, setUploading] = React.useState(false);
+  // + add user id to the database => auth.currentUser.uid
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 4],
       quality: 1,   // 0 means compress for small size, 1 means compress for maximum quality
@@ -34,10 +37,19 @@ export default function AddItemScreen({ navigation }) {
     }
   };
 
-  // + add user id to the database => auth.currentUser.uid
+  const takePhoto = async () => {
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [3, 4],
+    });
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    console.log(result);
+
+    if (!pickerResult.canceled) {
+      setImage(pickerResult.assets[0].uri);
+    }
+  };
+
 
   const showImage = () => {
     if (image == null) {
@@ -50,9 +62,46 @@ export default function AddItemScreen({ navigation }) {
     else {
       return <Image source={{ uri: image }} style={{ width: 3*50, height: 4*50 }} />
     }
-  }
+  };
 
   const handleAddItem = () => {
+  }
+
+  const uploadImage = async () => {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function() {
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', image, true);
+      xhr.send(null);
+    })
+    const ref = firebase.storage().ref().child(`Pictures/Image1`)
+    const snapshot = ref.put(blob)
+    snapshot.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      ()=>{
+        setUploading(true)
+      },
+      (error) => {
+        setUploading(false)
+        console.log(error)
+        blob.close()
+        return 
+      },
+      () => {
+        snapshot.snapshot.ref.getDownloadURL().then((url) => {
+          setUploading(false)
+          console.log("Download URL: ", url)
+          setImage(url)
+          blob.close()
+          return url
+        })
+      }
+      )
   }
 
     return (
@@ -76,12 +125,18 @@ export default function AddItemScreen({ navigation }) {
                 onPress={ pickImage}>
                 <Text style = {styles.ButtonText}>Browse gallery</Text>
             </Pressable>
+            <Pressable 
+                style = {styles.PrimaryButton} 
+                onPress={ takePhoto }>
+                <Text style = {styles.ButtonText}>Take a photo</Text>
+            </Pressable>
             {showImage()}
             <Pressable 
                 style = {styles.PrimaryButton} 
                 onPress={ handleAddItem }>
                 <Text style = {styles.ButtonText}>Add item</Text>
             </Pressable>
+            {!uploading ? <Button title='Upload Image' onPress={uploadImage} />: <ActivityIndicator size={'small'} color='black' />}
         </View>
     );
   }

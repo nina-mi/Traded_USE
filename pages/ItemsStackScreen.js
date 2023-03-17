@@ -8,7 +8,7 @@ const ItemsStack = createNativeStackNavigator();
 
 export function ItemsStackScreen() {
   return (
-    <ItemsStack.Navigator>
+    <ItemsStack.Navigator initialRouteName="My items">
       <ItemsStack.Screen name="My items" component={MyItemsScreen} />
       <ItemsStack.Screen name="Add item" component={AddItemScreen} />
     </ItemsStack.Navigator>

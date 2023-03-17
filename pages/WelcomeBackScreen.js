@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text,  Button} from "react-native";
+import { StyleSheet, View, Text,  Button, Pressable} from "react-native";
 // import Button from '../components/Button';
 import { getAuth } from "firebase/auth";
 
@@ -13,11 +13,11 @@ export default function WelcomeBackScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Welcome back {user.displayName}!</Text>
-        <Button
-        // TODO change to arrow icon
-            title="->"
-            onPress={() => navigation.navigate("TabStackScreen")}
-          />
+        <Pressable 
+          style = {styles.PrimaryButton} 
+          onPress={ () => navigation.navigate("TabStackScreen")}>
+          <Text style = {styles.ButtonText}>-></Text>
+        </Pressable>
     </View>
   );
 }

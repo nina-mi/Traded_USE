@@ -1,6 +1,6 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Button, Alert} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable} from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
@@ -54,10 +54,11 @@ export default function SignUpScreen({ navigation }) {
               <Text>Password</Text>
               <TextInput label={"Password"} onChangeText={(text) => setPassword(text)} placeholder="password123"/>
             </View>
-            <Button
-                title="Sign up"
-                onPress={ handleCreateAccount }
-            />
+            <Pressable 
+              style = {styles.PrimaryButton} 
+              onPress={ handleCreateAccount }>
+              <Text style = {styles.ButtonText}>Sign up</Text>
+            </Pressable>
         </View>
     );
   }
