@@ -44,6 +44,9 @@ export const styles = StyleSheet.create({
       letterSpacing: 0.25,
       color: colors.app_evergreen_brighter,
     },
+    ProgressBarContainer: {
+      marginTop: 20
+    },
     // TODO: add styles for the rest of the components, ie primary button,
     // secondary button, text input, display text, headline, title, label, body
     // icons,...

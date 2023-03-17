@@ -1,9 +1,12 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image, TouchableOpacity, Platform, Blob} from "react-native";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
+import * as Progress from 'react-native-progress';
+import { getStorage, ref, uploadBytes} from "firebase/storage";
+import storage from 'firebase/storage';
 
 // style
 import { styles } from '../DefinedStyles';
@@ -13,6 +16,7 @@ export default function AddProfileInfoScreen({ navigation }) {
     const [username, setUsername] = React.useState('');
     const [image, setImage] = React.useState(null);
     const [uploading, setUploading] = React.useState(false);
+    const [transferred, setTransferred] = React.useState(0);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -27,7 +31,7 @@ export default function AddProfileInfoScreen({ navigation }) {
         if (!result.canceled) {
           setImage(result.assets[0].uri);
         }
-      };
+    };
     
     const showImage = () => {
         if (image == null) {
@@ -39,7 +43,53 @@ export default function AddProfileInfoScreen({ navigation }) {
         else {
           return <Image source={{ uri: image }} style={{ width: 3*50, height: 3*50 }} />
         }
-      };
+    };
+
+    const uploadImage = async () => {
+        const storage = getStorage();
+        const uri = image;
+        const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        
+        setUploading(true);
+        setTransferred(0);
+
+        // const storageRef = ref(storage, filename);
+        // uploadBytes(storageRef, filename).then((snapshot) => {
+        //     console.log('Uploaded a blob or file!');
+        // })
+
+        const response = await fetch(uploadUri);
+        const blobFile = await response.blob();
+        const reference = ref(storage, filename);
+        const task = uploadBytes(reference, blobFile);
+
+        // set progress state
+        // task.on('state_changed', snapshot => {
+        //   setTransferred(
+        //     Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
+        //     );
+        // });
+        task.onChange(snapshot => {
+            setTransferred(
+                Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
+                );
+        });
+
+        try {
+            await task;
+        } catch (e) {
+            console.error(e);
+        }
+
+        setUploading(false);
+
+        Alert.alert(
+          'Photo uploaded!',
+          'Your photo has been uploaded to Firebase Cloud Storage!'
+        );
+        // setImage(null);
+    };
 
     const addProfileInfo = () => {
         onAuthStateChanged(auth, (user) => {
@@ -100,6 +150,15 @@ export default function AddProfileInfoScreen({ navigation }) {
                 onPress={ addProfileInfo }>
                 <Text style = {styles.ButtonText}>Save my data</Text>
             </Pressable>
+            {uploading ? (
+                <View style={styles.ProgressBarContainer}>
+                    <Progress.Bar progress={transferred} width={300} />
+                </View>
+                ) : (
+                <TouchableOpacity style={styles.PrimaryButton} onPress={uploadImage}>
+                    <Text style={styles.ButtonText}>Upload image</Text>
+                </TouchableOpacity>
+                )}
         </View>
     );
 }
