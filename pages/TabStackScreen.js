@@ -12,7 +12,7 @@ export default function TabStackScreen() {
     <Tab.Screen name="Leaderboard" component={LeaderboardScreen}/>
     <Tab.Screen name="Browse" component={BrowseScreen}/>
     <Tab.Screen name="My matches" component={MyMatchesScreen}/>
-    <Tab.Screen name="My items" component={ItemsStackScreen} options={{headerShown: false}} />
+    <Tab.Screen name="My item" component={ItemsStackScreen} options={{headerShown: false, title: 'My items' }} />
   </Tab.Navigator>
   );
 }

@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image, Tou
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
-import * as Progress from 'react-native-progress';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
 import storage from 'firebase/storage';
 
@@ -15,8 +14,8 @@ export default function AddProfileInfoScreen({ navigation }) {
     const auth = getAuth();
     const [username, setUsername] = React.useState('');
     const [image, setImage] = React.useState(null);
-    const [uploading, setUploading] = React.useState(false);
-    const [transferred, setTransferred] = React.useState(0);
+    // const [uploading, setUploading] = React.useState(false);
+    // const [transferred, setTransferred] = React.useState(0);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -51,13 +50,8 @@ export default function AddProfileInfoScreen({ navigation }) {
         const filename = uri.substring(uri.lastIndexOf('/') + 1);
         const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
         
-        setUploading(true);
-        setTransferred(0);
-
-        // const storageRef = ref(storage, filename);
-        // uploadBytes(storageRef, filename).then((snapshot) => {
-        //     console.log('Uploaded a blob or file!');
-        // })
+        // setUploading(true);
+        // setTransferred(0);
 
         const response = await fetch(uploadUri);
         const blobFile = await response.blob();
@@ -70,11 +64,6 @@ export default function AddProfileInfoScreen({ navigation }) {
         //     Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
         //     );
         // });
-        task.onChange(snapshot => {
-            setTransferred(
-                Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
-                );
-        });
 
         try {
             await task;
@@ -82,21 +71,23 @@ export default function AddProfileInfoScreen({ navigation }) {
             console.error(e);
         }
 
-        setUploading(false);
+        // setUploading(false);
 
-        Alert.alert(
-          'Photo uploaded!',
-          'Your photo has been uploaded to Firebase Cloud Storage!'
-        );
+        // Alert.alert(
+        //   'Photo uploaded!',
+        //   'Your photo has been uploaded to Firebase Cloud Storage!'
+        // );
         // setImage(null);
+        await addProfileInfo(uploadUri);
     };
 
-    const addProfileInfo = () => {
+    const addProfileInfo = async (uri) => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 console.log(user);
                 updateProfile(user, {
                     displayName: username,
+                    photoURL: uri,
                 });
             }
         })
@@ -145,20 +136,14 @@ export default function AddProfileInfoScreen({ navigation }) {
                 <Text style = {styles.ButtonText}>Browse gallery</Text>
             </Pressable>
             {showImage()}
-            <Pressable 
+            {/* <Pressable 
                 style = {styles.PrimaryButton} 
                 onPress={ addProfileInfo }>
                 <Text style = {styles.ButtonText}>Save my data</Text>
-            </Pressable>
-            {uploading ? (
-                <View style={styles.ProgressBarContainer}>
-                    <Progress.Bar progress={transferred} width={300} />
-                </View>
-                ) : (
-                <TouchableOpacity style={styles.PrimaryButton} onPress={uploadImage}>
-                    <Text style={styles.ButtonText}>Upload image</Text>
-                </TouchableOpacity>
-                )}
+            </Pressable> */}
+            <TouchableOpacity style={styles.PrimaryButton} onPress={uploadImage}>
+                <Text style={styles.ButtonText}>Save my data</Text>
+            </TouchableOpacity>
         </View>
     );
 }

@@ -6,8 +6,10 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
+import { getStorage, ref, uploadBytes} from "firebase/storage";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 // style
 import { styles } from '../DefinedStyles';
@@ -17,7 +19,6 @@ export default function AddItemScreen({ navigation }) {
   const [itemSize, setItemSize] = React.useState('');
   const [itemType, setItemType] = React.useState('');
   const [image, setImage] = React.useState(null);
-  const [uploading, setUploading] = React.useState(false);
   // + add user id to the database => auth.currentUser.uid
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -64,45 +65,40 @@ export default function AddItemScreen({ navigation }) {
     }
   };
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
+    await uploadImage();
+    const db = firebase.firestore();
+    const user = auth.currentUser;
+    const uid = user.uid;
+    const docRef = db.collection("items").doc(uid);
+    const item = {
+      color: itemColor,
+      size: itemSize,
+      type: itemType,
+      image: image
+    }
+    await docRef.set(item);
+    navigation.navigate('Browse');
   }
 
   const uploadImage = async () => {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function() {
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', image, true);
-      xhr.send(null);
-    })
-    const ref = firebase.storage().ref().child(`Pictures/Image1`)
-    const snapshot = ref.put(blob)
-    snapshot.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      ()=>{
-        setUploading(true)
-      },
-      (error) => {
-        setUploading(false)
-        console.log(error)
-        blob.close()
-        return 
-      },
-      () => {
-        snapshot.snapshot.ref.getDownloadURL().then((url) => {
-          setUploading(false)
-          console.log("Download URL: ", url)
-          setImage(url)
-          blob.close()
-          return url
-        })
-      }
-      )
-  }
+    const storage = getStorage();
+    const uri = image;
+    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+
+    const response = await fetch(uploadUri);
+    const blobFile = await response.blob();
+    const reference = ref(storage, filename);
+    const task = uploadBytes(reference, blobFile);
+
+    try {
+        await task;
+    } catch (e) {
+        console.error(e);
+    }
+
+};
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -125,18 +121,20 @@ export default function AddItemScreen({ navigation }) {
                 onPress={ pickImage}>
                 <Text style = {styles.ButtonText}>Browse gallery</Text>
             </Pressable>
-            <Pressable 
+            {// there is quite a well-known bug with expo camera, so I will leave it as a comment for now
+            // there is not much time for me to add the camera feature rn
+            }
+            {/* <Pressable 
                 style = {styles.PrimaryButton} 
                 onPress={ takePhoto }>
                 <Text style = {styles.ButtonText}>Take a photo</Text>
-            </Pressable>
+            </Pressable> */}
             {showImage()}
             <Pressable 
                 style = {styles.PrimaryButton} 
                 onPress={ handleAddItem }>
                 <Text style = {styles.ButtonText}>Add item</Text>
             </Pressable>
-            {!uploading ? <Button title='Upload Image' onPress={uploadImage} />: <ActivityIndicator size={'small'} color='black' />}
         </View>
     );
   }
