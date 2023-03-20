@@ -3,7 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text} from "react-native";
 import Button from '../components/Button';
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
+
 
 // style
 import { styles } from '../DefinedStyles';
@@ -37,6 +39,13 @@ import { styles } from '../DefinedStyles';
 //     });
 //   });
 // }
+
+async function getUserPoints() {
+  const auth = getAuth();
+  user = auth.currentUser;
+  const db = getFirestore();
+
+}
 
 export default function LeaderboardScreen({ navigation }) {
   const auth = getAuth();

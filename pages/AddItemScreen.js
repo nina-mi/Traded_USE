@@ -65,21 +65,26 @@ export default function AddItemScreen({ navigation }) {
     }
   };
 
-  const handleAddItem = async () => {
-    await uploadImage();
-    const db = firebase.firestore();
-    const user = auth.currentUser;
-    const uid = user.uid;
-    const docRef = db.collection("items").doc(uid);
-    const item = {
-      color: itemColor,
-      size: itemSize,
-      type: itemType,
-      image: image
-    }
-    await docRef.set(item);
-    navigation.navigate('Browse');
-  }
+  // const handleAddItem = async () => {
+  //   await uploadImage();
+  //   const db = firebase.firestore();
+  //   console.log('1');
+  //   const user = auth.currentUser;
+  //   console.log('2');
+  //   const uid = user.uid;
+  //   console.log('3');
+  //   const docRef = db.collection("items").doc(uid);
+  //   console.log('4');
+  //   const item = {
+  //     color: itemColor,
+  //     size: itemSize,
+  //     type: itemType,
+  //     image: image
+  //   }
+  //   await docRef.set(item);
+  //   console.log('5');
+  //   // navigation.navigate('Browse');
+  // }
 
   const uploadImage = async () => {
     const storage = getStorage();
