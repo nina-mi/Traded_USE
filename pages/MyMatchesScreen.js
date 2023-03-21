@@ -14,7 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 // style
 import { styles } from '../DefinedStyles';
-
+import { getDatabase, ref, onValue, set } from "firebase/database";
 
 
 export default function MyMatchesScreen({ navigation }) {
@@ -28,18 +28,12 @@ export default function MyMatchesScreen({ navigation }) {
       setNumber(randomNumber);
 
   }
-async function generateCode() {
-  const auth = getAuth();
-  user = auth.currentUser;
-  const db = getFirestore();
-  try {
-    const docRef = await addDoc(collection(db, "AccessCode"), {
-      code: number,
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
+  function generateCode() {
+    const db2 = getDatabase();
+    const reference = ref(db2, 'AccessCodes/');
+    set(reference, {
+      Code: number,
+  });
 }
 
 const simpleAlertHandler = () => {
