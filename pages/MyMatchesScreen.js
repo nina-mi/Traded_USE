@@ -1,8 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, Pressable, Alert} from "react-native";
-import Button from '../components/Button';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { secondaryAppConfig } from "../firebase.config";
 import React from "react";
@@ -12,6 +8,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+
 // style
 import { styles } from '../DefinedStyles';
 import { getDatabase, ref, onValue, set } from "firebase/database";
@@ -19,6 +16,7 @@ import { getDatabase, ref, onValue, set } from "firebase/database";
 import { getAnalytics } from "firebase/analytics";
 
 export default function MyMatchesScreen({ navigation }) {
+  const app2 = initializeApp(secondaryAppConfig, "Secondary");
 
   const [number, setNumber] = React.useState(1);
 
