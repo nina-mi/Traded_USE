@@ -10,18 +10,14 @@ export const firebaseConfig = {
     measurementId: 'G-EYEMV2R9CV',
 };
 
-// The following fields are REQUIRED:
-//  - Project ID
-//  - App ID
-//  - API Key
+
 export const secondaryAppConfig = {
-    projectId: "traded2-539b5",
-    appId: "1:258345241334:web:cc14aa5e00771f7dc17ad7",
     apiKey: "AIzaSyDbSnZF1G_jEBOfEQ22VUPYjYk6tf2adsQ",
-    databaseURL: "https://traded2-539b5.firebaseio.com",
+    authDomain: "traded2-539b5.firebaseapp.com",
+    databaseURL: "https://traded2-539b5-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "traded2-539b5",
     storageBucket: "traded2-539b5.appspot.com",
+    messagingSenderId: "258345241334",
+    appId: "1:258345241334:web:cc14aa5e00771f7dc17ad7",
+    measurementId: "G-B2MJL7F8R0"
 };
-//this part stops the app from booting
-// Initialize another app with a different config
-//const secondaryApp = firebase.initializeApp(secondaryAppConfig, "secondary");
-     //   secondaryApp.database();

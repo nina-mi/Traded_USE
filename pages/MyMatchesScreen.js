@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Pressable, Alert} from "react-native";
 import Button from '../components/Button';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebase.config";
+import { secondaryAppConfig } from "../firebase.config";
 import React from "react";
 import 'firebase/compat/storage';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
@@ -16,13 +16,15 @@ import { getFirestore } from "firebase/firestore";
 import { styles } from '../DefinedStyles';
 import { getDatabase, ref, onValue, set } from "firebase/database";
 
+import { getAnalytics } from "firebase/analytics";
 
 export default function MyMatchesScreen({ navigation }) {
 
   const [number, setNumber] = React.useState(1);
 
+  const app = initializeApp(secondaryAppConfig);
+  const analytics = getAnalytics(app);
 
-  
   const getRandomNumber = () => {
       const randomNumber = Math.floor(Math.random() * 9000 + 1000);
       setNumber(randomNumber);
