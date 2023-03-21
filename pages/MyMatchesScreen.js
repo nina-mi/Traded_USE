@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
 import { secondaryAppConfig } from "../firebase.config";
 import React from "react";
 import 'firebase/compat/storage';
-import { getStorage, ref, uploadBytes} from "firebase/storage";
+import { getStorage, ref, uploadBytes, set} from "firebase/storage";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore";
