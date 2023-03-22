@@ -14,7 +14,7 @@ export const firebaseConfig = {
 export const secondaryAppConfig = {
     apiKey: "AIzaSyDbSnZF1G_jEBOfEQ22VUPYjYk6tf2adsQ",
     authDomain: "traded2-539b5.firebaseapp.com",
-    databaseURL: "https://traded2-539b5-default-rtdb.europe-west1.firebasedatabase.app",
+    databaseURL: "https://traded2-539b5.firebaseio.com",
     projectId: "traded2-539b5",
     storageBucket: "traded2-539b5.appspot.com",
     messagingSenderId: "258345241334",

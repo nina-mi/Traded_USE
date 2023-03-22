@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { secondaryAppConfig } from "../firebase.config";
 import React from "react";
 import 'firebase/compat/storage';
-import { getStorage, ref, uploadBytes, set} from "firebase/storage";
+import { getStorage, uploadBytes} from "firebase/storage";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore";
@@ -20,8 +20,6 @@ export default function MyMatchesScreen({ navigation }) {
 
   const [number, setNumber] = React.useState(1);
 
-  const app = initializeApp(secondaryAppConfig);
-  const analytics = getAnalytics(app);
 
   const getRandomNumber = () => {
       const randomNumber = Math.floor(Math.random() * 9000 + 1000);
