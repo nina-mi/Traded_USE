@@ -5,7 +5,6 @@ import React from "react";
 import 'firebase/compat/storage';
 import { getStorage, uploadBytes} from "firebase/storage";
 import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -20,7 +19,7 @@ export default function MyMatchesScreen({ navigation }) {
 
   const [number, setNumber] = React.useState(1);
 
-  const analytics = getAnalytics(app2);
+  const analytics = getAnalytics();
 
   const getRandomNumber = () => {
       const randomNumber = Math.floor(Math.random() * 9000 + 1000);
@@ -28,7 +27,7 @@ export default function MyMatchesScreen({ navigation }) {
 
   }
   function generateCode() {
-    const db2 = getDatabase();
+    const db2 = getDatabase(app2);
     const reference = ref(db2, 'AccessCodes/');
     set(reference, {
       Code: number,
