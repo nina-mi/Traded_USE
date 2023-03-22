@@ -20,6 +20,7 @@ export default function MyMatchesScreen({ navigation }) {
 
   const [number, setNumber] = React.useState(1);
 
+  const analytics = getAnalytics(app2);
 
   const getRandomNumber = () => {
       const randomNumber = Math.floor(Math.random() * 9000 + 1000);
