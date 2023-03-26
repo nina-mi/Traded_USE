@@ -1,58 +1,95 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text} from "react-native";
-import Button from '../components/Button';
+import { StyleSheet, View, Text, Pressable} from "react-native";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { collection, doc, setDoc } from "firebase/firestore";
-
+import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
+import React from "react";
 
 // style
 import { styles } from '../DefinedStyles';
 
-// This doesn't work yet, the app crashes when I try to import the firebase/firestore module and use these functions
-
-// // intialize services
-// const db = getFirestore();
-
-// // collection reference
-// const colRefUserInformation = collection(db, "userInformation");
-
-// // get collection data
-// getDocs(colRefUserInformation)
-//   .then((snapshot) => {
-//     let userInformation = [];
-//     snapshot.docs.forEach((doc) =>{
-//       userInformation.push({ ...doc.data(), id: doc.id });
-//     })
-
-//   })
-//   .catch(error => {
-//     console.log(error.message);
-//   })
-
-// function printLeaders() {
-//   const q = query(colRefUserInformation, orderBy("nrOfPoints", "desc"), limit(2));
-//   getDocs(q).then((snapshot) => {
-//     snapshot.forEach((doc) => {
-//       console.log(doc.id, " => ", doc.data());
-//     });
-//   });
+// function displayNamePoints(data) {
+//   return (
+//     <View>
+//       <Text>{data.nrOfPoints}: {data.displayName}</Text>
+//     </View>
+//   );
 // }
 
-async function getUserPoints() {
+export default function LeaderboardScreen() {
   const auth = getAuth();
-  user = auth.currentUser;
+  const user = auth.currentUser;
+  const data_array = [];
+  const [userPoints, setUserPoints] = React.useState(55);
+  const [userInfoID, setUserInfoID] = React.useState("");
   const db = getFirestore();
+  getSignedInUserPoints();
+  whatever();
 
-}
 
-export default function LeaderboardScreen({ navigation }) {
-  const auth = getAuth();
-  user = auth.currentUser;
+  async function getSignedInUserPoints() {
+    const q = query(collection(db, "userInformation"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.userID === user.uid) {
+        setUserPoints(data.nrOfPoints);
+        setUserInfoID(data.id);
+        }
+    });
+  }
+
+  const getUserPoints = async () => {
+    const data_array = [];
+    const q = query(collection(db, "userInformation"), orderBy("nrOfPoints", "desc"), limit(5));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      //console.log(doc.id, " => ", doc.data());
+      const data = doc.data();
+      console.log(data.displayName, " => ", data.nrOfPoints);
+      //displayNamePoints(data);
+    });
+  }
+
+  // const displayNamePoints = (data) => {
+  //   return (
+  //     <View>
+  //       <Text>{data.nrOfPoints}: {data.displayName}</Text>
+  //     </View>
+  //   );
+  // }
+  async function whatever() {
+    console.log("whatever");
+    const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
+    const docSnap = await getDoc(userInformationRef);
+    console.log(docSnap.data());
+  }
+
+  async function checkIn() {
+    //setUserPoints(userPoints + 1);
+    //const userInformationRef = doc(db, "userInformation", userInfoID);
+    //const userInformationRef = db.collection("userInformation").doc(userInfoID);
+    //const docSnap = await getDoc(userInformationRef);
+    const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
+    const docSnap = await getDoc(userInformationRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    }
+    await userInformationRef.update({
+      nrOfPoints: FieldValue.increment(1)
+    });
+    console.log("Checked in!");
+  }
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Leaderboard</Text>
+      <Text>Your points: {userPoints}</Text>
+      <Pressable 
+        style = {styles.PrimaryButton} 
+        onPress={ checkIn }>
+        <Text style = {styles.ButtonText}>Check in!</Text>
+      </Pressable>
+
+      {/* {getUserPoints()} */}
 
     </View>
   );

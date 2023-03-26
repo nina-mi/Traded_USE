@@ -32,7 +32,7 @@ export default function MyMatchesScreen({ navigation }) {
     set(reference, {
       Code: number,
   });
-}
+  }
 
 const simpleAlertHandler = () => {
   //function to make simple alert
