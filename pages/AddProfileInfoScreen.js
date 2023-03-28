@@ -73,16 +73,6 @@ export default function AddProfileInfoScreen({ navigation }) {
                 });
             }
         })
-        navigation.dispatch(
-            CommonActions.reset({
-                index: 0,
-                routes: [
-                    {
-                        name: 'Welcome',
-                    }
-                ]
-            })
-        )
     }
 
     const addNewUserPoints = async () => {
@@ -100,6 +90,20 @@ export default function AddProfileInfoScreen({ navigation }) {
           console.error("Error adding document: ", e);
         }
       }
+
+    const sendToNextScreen = () => {
+      navigation.dispatch(
+        CommonActions.reset({
+            index: 0,
+            routes: [
+                {
+                    name: 'Welcome',
+                },
+            
+            ],
+        })
+      )
+    }
 
 
     return (
@@ -122,7 +126,7 @@ export default function AddProfileInfoScreen({ navigation }) {
                 onPress={ addProfileInfo }>
                 <Text style = {styles.ButtonText}>Save my data</Text>
             </Pressable> */}
-            <TouchableOpacity style={styles.PrimaryButton} onPress={() => {uploadImage(); addNewUserPoints()}}>
+            <TouchableOpacity style={styles.PrimaryButton} onPress={() => {uploadImage(); addNewUserPoints(); sendToNextScreen()}}>
                 <Text style={styles.ButtonText}>Save my data</Text>
             </TouchableOpacity>
         </View>

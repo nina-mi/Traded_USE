@@ -12,14 +12,14 @@ import { getFirestore } from "firebase/firestore";
 import { styles } from '../DefinedStyles';
 import { getDatabase, ref, onValue, set } from "firebase/database";
 
-import { getAnalytics } from "firebase/analytics";
+// import { getAnalytics } from "firebase/analytics";
 
 export default function MyMatchesScreen({ navigation }) {
   const app2 = initializeApp(secondaryAppConfig, "Secondary");
 
   const [number, setNumber] = React.useState(1);
 
-  const analytics = getAnalytics();
+  // const analytics = getAnalytics();
 
   const getRandomNumber = () => {
       const randomNumber = Math.floor(Math.random() * 9000 + 1000);

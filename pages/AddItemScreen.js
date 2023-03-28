@@ -1,15 +1,14 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image} from "react-native";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
 import 'firebase/compat/storage';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { collection, addDoc, getFirestore } from "firebase/firestore";
 
 // style
 import { styles } from '../DefinedStyles';
@@ -20,8 +19,9 @@ export default function AddItemScreen({ navigation }) {
   const [itemType, setItemType] = React.useState('');
   const [image, setImage] = React.useState(null);
   // + add user id to the database => auth.currentUser.uid
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+  const auth = getAuth();
+  const user_uid = auth.currentUser.uid;
+  let filename = "";
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -65,31 +65,38 @@ export default function AddItemScreen({ navigation }) {
     }
   };
 
-  // const handleAddItem = async () => {
-  //   await uploadImage();
-  //   const db = firebase.firestore();
-  //   console.log('1');
-  //   const user = auth.currentUser;
-  //   console.log('2');
-  //   const uid = user.uid;
-  //   console.log('3');
-  //   const docRef = db.collection("items").doc(uid);
-  //   console.log('4');
-  //   const item = {
-  //     color: itemColor,
-  //     size: itemSize,
-  //     type: itemType,
-  //     image: image
-  //   }
-  //   await docRef.set(item);
-  //   console.log('5');
-  //   // navigation.navigate('Browse');
-  // }
+  const handleAddItem = async () => {
+    const db = getFirestore();
+    await uploadImage();
+    try {
+      const docRef = await addDoc(collection(db, "items"), {
+        itemColor: itemColor,
+        itemSize: itemSize,
+        itemType: itemType,
+        userID: user_uid,
+        itemPicture: filename,
+    });
+    console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    // navigation.navigate();
+    navigation.dispatch(
+      CommonActions.reset({
+          index: 0,
+          routes: [
+              {
+                  name: "My items",
+              }
+          ]
+      })
+  )
+  }
 
   const uploadImage = async () => {
     const storage = getStorage();
     const uri = image;
-    const filename = uri.substring(uri.lastIndexOf('/') + 1);
+    filename = uri.substring(uri.lastIndexOf('/') + 1);
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 
     const response = await fetch(uploadUri);

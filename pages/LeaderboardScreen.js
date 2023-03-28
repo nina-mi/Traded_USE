@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable} from "react-native";
+import { StyleSheet, View, Text, Pressable, FlatList} from "react-native";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
@@ -18,18 +18,24 @@ import { styles } from '../DefinedStyles';
 export default function LeaderboardScreen() {
   const auth = getAuth();
   const user = auth.currentUser;
-  const data_array = [];
+  let data_array = [];
   const [userPoints, setUserPoints] = React.useState(55);
   const [userInfoID, setUserInfoID] = React.useState("");
+  const [peopleNames, setPeopleNames] = React.useState([]);
+  const [peoplePoints, setPeoplePoints] = React.useState([]);
   const db = getFirestore();
   getSignedInUserPoints();
-  whatever();
+  // whatever();
+  getUserPoints();
+  const data_array2 = [];
 
 
   async function getSignedInUserPoints() {
     const q = query(collection(db, "userInformation"));
     const querySnapshot = await getDocs(q);
+    let i = 0;
     querySnapshot.forEach((doc) => {
+
       const data = doc.data();
       if (data.userID === user.uid) {
         setUserPoints(data.nrOfPoints);
@@ -38,14 +44,15 @@ export default function LeaderboardScreen() {
     });
   }
 
-  const getUserPoints = async () => {
-    const data_array = [];
+  async function getUserPoints() {
     const q = query(collection(db, "userInformation"), orderBy("nrOfPoints", "desc"), limit(5));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      //console.log(doc.id, " => ", doc.data());
       const data = doc.data();
-      console.log(data.displayName, " => ", data.nrOfPoints);
+      data_array.push(data);
+      // console.log(data.displayName, " => ", data.nrOfPoints);
+      setPeopleNames(peopleNames => [...peopleNames, data.displayName]);
+      setPeoplePoints(peoplePoints => [...peoplePoints, data.nrOfPoints]);
       //displayNamePoints(data);
     });
   }
@@ -61,7 +68,7 @@ export default function LeaderboardScreen() {
     console.log("whatever");
     const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
     const docSnap = await getDoc(userInformationRef);
-    console.log(docSnap.data());
+    // console.log(docSnap.data());
   }
 
   async function checkIn() {
@@ -69,6 +76,7 @@ export default function LeaderboardScreen() {
     //const userInformationRef = doc(db, "userInformation", userInfoID);
     //const userInformationRef = db.collection("userInformation").doc(userInfoID);
     //const docSnap = await getDoc(userInformationRef);
+    console.log("got here");
     const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
     const docSnap = await getDoc(userInformationRef);
     if (docSnap.exists()) {
@@ -82,6 +90,9 @@ export default function LeaderboardScreen() {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Complete your daily check-in!</Text>
+      <Text>You can earn points by completing your daily check-in, successfully trading clothes with other users and reaching certain milestones.</Text>
+      <Text>Keep track of your trades and watch your point balance grow as you continue to engage with our community!</Text>
       <Text>Your points: {userPoints}</Text>
       <Pressable 
         style = {styles.PrimaryButton} 
@@ -89,7 +100,17 @@ export default function LeaderboardScreen() {
         <Text style = {styles.ButtonText}>Check in!</Text>
       </Pressable>
 
-      {/* {getUserPoints()} */}
+      {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
+      <Text>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
+      <View>
+      <Text>
+      Rank 1-5: Username, number of points</Text>
+      <Text>1. {peopleNames[0]} {peoplePoints[0]}</Text>
+      <Text>2. {peopleNames[1]} {peoplePoints[1]}</Text>
+      <Text>3. {peopleNames[2]} {peoplePoints[2]}</Text>
+      <Text>4. {peopleNames[3]} {peoplePoints[3]}</Text>
+      <Text>5. {peopleNames[4]} {peoplePoints[4]}</Text>
+      </View>      
 
     </View>
   );
