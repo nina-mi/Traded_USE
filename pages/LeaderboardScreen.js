@@ -94,11 +94,11 @@ export default function LeaderboardScreen() {
       <Text>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
       <View>
         <Text>Rank 1-5: Username, number of points</Text>
-        <Text>1. {peopleNames[0]} {peoplePoints[0]}</Text>
-        <Text>2. {peopleNames[1]} {peoplePoints[1]}</Text>
-        <Text>3. {peopleNames[2]} {peoplePoints[2]}</Text>
-        <Text>4. {peopleNames[3]} {peoplePoints[3]}</Text>
-        <Text>5. {peopleNames[4]} {peoplePoints[4]}</Text>
+        <Text>1. {peopleNames[0]} - {peoplePoints[0]}</Text>
+        <Text>2. {peopleNames[1]} - {peoplePoints[1]}</Text>
+        <Text>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
+        <Text>4. {peopleNames[3]} - {peoplePoints[3]}</Text>
+        <Text>5. {peopleNames[4]} - {peoplePoints[4]}</Text>
       </View>      
 
     </View>

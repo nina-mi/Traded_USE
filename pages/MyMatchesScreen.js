@@ -17,27 +17,29 @@ import { getDatabase, ref, onValue, set } from "firebase/database";
 export default function MyMatchesScreen({ navigation }) {
   const app2 = initializeApp(secondaryAppConfig, "Secondary");
 
-  const [number, setNumber] = React.useState(1);
+  const [number, setNumber] = React.useState(Math.floor(Math.random() * 9000 + 1000));
 
   // const analytics = getAnalytics();
 
-  const getRandomNumber = () => {
+  const getRandomNumber = async () => {
       const randomNumber = Math.floor(Math.random() * 9000 + 1000);
       setNumber(randomNumber);
-
   }
+
   function generateCode() {
     const db2 = getDatabase(app2);
     const reference = ref(db2, 'AccessCodes/');
     set(reference, {
       Code: number,
-  });
+      }
+    );
   }
 
 const simpleAlertHandler = () => {
   //function to make simple alert
   alert(number);
 };
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Press the button below to generate your locker access code</Text>
