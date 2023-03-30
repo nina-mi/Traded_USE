@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable, FlatList} from "react-native";
+import { StyleSheet, View, Text, Pressable} from "react-native";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
@@ -24,9 +24,14 @@ export default function LeaderboardScreen() {
   const [peopleNames, setPeopleNames] = React.useState([]);
   const [peoplePoints, setPeoplePoints] = React.useState([]);
   const db = getFirestore();
-  getSignedInUserPoints();
-  // whatever();
-  getUserPoints();
+  React.useEffect(() => {
+    getSignedInUserPoints()
+  }, [])
+  
+  React.useEffect(() => {
+    getUserPoints()
+  }, [])
+  
   const data_array2 = [];
 
 
@@ -57,25 +62,8 @@ export default function LeaderboardScreen() {
     });
   }
 
-  // const displayNamePoints = (data) => {
-  //   return (
-  //     <View>
-  //       <Text>{data.nrOfPoints}: {data.displayName}</Text>
-  //     </View>
-  //   );
-  // }
-  async function whatever() {
-    console.log("whatever");
-    const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
-    const docSnap = await getDoc(userInformationRef);
-    // console.log(docSnap.data());
-  }
 
   async function checkIn() {
-    //setUserPoints(userPoints + 1);
-    //const userInformationRef = doc(db, "userInformation", userInfoID);
-    //const userInformationRef = db.collection("userInformation").doc(userInfoID);
-    //const docSnap = await getDoc(userInformationRef);
     console.log("got here");
     const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
     const docSnap = await getDoc(userInformationRef);
@@ -86,6 +74,8 @@ export default function LeaderboardScreen() {
       nrOfPoints: FieldValue.increment(1)
     });
     console.log("Checked in!");
+    getSignedInUserPoints();
+    
   }
 
   return (
@@ -103,13 +93,12 @@ export default function LeaderboardScreen() {
       {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
       <Text>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
       <View>
-      <Text>
-      Rank 1-5: Username, number of points</Text>
-      <Text>1. {peopleNames[0]} {peoplePoints[0]}</Text>
-      <Text>2. {peopleNames[1]} {peoplePoints[1]}</Text>
-      <Text>3. {peopleNames[2]} {peoplePoints[2]}</Text>
-      <Text>4. {peopleNames[3]} {peoplePoints[3]}</Text>
-      <Text>5. {peopleNames[4]} {peoplePoints[4]}</Text>
+        <Text>Rank 1-5: Username, number of points</Text>
+        <Text>1. {peopleNames[0]} {peoplePoints[0]}</Text>
+        <Text>2. {peopleNames[1]} {peoplePoints[1]}</Text>
+        <Text>3. {peopleNames[2]} {peoplePoints[2]}</Text>
+        <Text>4. {peopleNames[3]} {peoplePoints[3]}</Text>
+        <Text>5. {peopleNames[4]} {peoplePoints[4]}</Text>
       </View>      
 
     </View>
