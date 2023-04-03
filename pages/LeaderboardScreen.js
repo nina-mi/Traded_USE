@@ -3,9 +3,10 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
 import React from "react";
-import { Table, Row, Rows, Col, TableWrapper} from "react-native-table-component";
-
+//import { Table, Row, Rows, Col, TableWrapper} from "react-native-table-component";
+//import Leaderboard from 'react-native-leaderboard';
 // style
+
 import { styles } from '../DefinedStyles';
 
 // function displayNamePoints(data) {
@@ -89,26 +90,17 @@ export default function LeaderboardScreen() {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Complete your daily check-in!</Text>
-      <Text>You can earn points by completing your daily check-in, successfully trading clothes with other users and reaching certain milestones.</Text>
-      <Text>Keep track of your trades and watch your point balance grow as you continue to engage with our community!</Text>
-      <Text>Your points: {userPoints}</Text>
-      <Pressable 
-        style = {styles.PrimaryButton} 
-        onPress={ checkIn }>
-        <Text style = {styles.ButtonText}>Check in!</Text>
-      </Pressable>
+    <View style={{ flex: 1, alignItems: 'center'}}>
+      
 
-      {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
-      <Text>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
-      <View>
-        <Text>Rank 1-5: Username, number of points</Text>
-        <Text>1. {peopleNames[0]} - {peoplePoints[0]}</Text>
-        <Text>2. {peopleNames[1]} - {peoplePoints[1]}</Text>
-        <Text>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
-        <Text>4. {peopleNames[3]} - {peoplePoints[3]}</Text>
-        <Text>5. {peopleNames[4]} - {peoplePoints[4]}</Text>
+      <View style={{ flex: 0.6, alignItems: 'center'}}>
+
+        <Text style = {styles.title}>{'\n'}Leaderboard: Rank 1-5</Text>
+        <Text style = {styles.textlb}>1. {peopleNames[0]} - {peoplePoints[0]}</Text>
+        <Text style = {styles.textlb}>2. {peopleNames[1]} - {peoplePoints[1]}</Text>
+        <Text style = {styles.textlb}>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
+        <Text style = {styles.textlb}>4. {peopleNames[3]} - {peoplePoints[3]}</Text>
+        <Text style = {styles.textlb}>5. {peopleNames[4]} - {peoplePoints[4]}</Text>
         {/* <Table borderStyle={{ borderWidth: 1 }}>
           <Row
             data={CONTENT.tableHead}
@@ -131,7 +123,21 @@ export default function LeaderboardScreen() {
           </TableWrapper>
       </Table> */}
       </View>      
+<View style={{borderBottomColor: 'black',
+    borderWidth: StyleSheet.hairlineWidth, flex: 0.4}}>
+      <Text style = {styles.title}>Complete your daily check-in!</Text>
+      <Text>{'\n'}You can earn points by completing your daily check-in, successfully trading clothes with other users, or reaching certain milestones.</Text>
+      <Text>{'\n'}All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
+      <Text style={{fontWeight: 'bold'}}>{'\n'}Your points: {userPoints}{'\n'}</Text>
+      <Pressable 
+        style = {styles.PrimaryButton} 
+        onPress={ checkIn }>
+        <Text style = {styles.ButtonText}>Check in!</Text>
+      </Pressable>
 
+      {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
+      
+      </View>
     </View>
   );
 }

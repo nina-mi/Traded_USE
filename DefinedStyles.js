@@ -28,6 +28,17 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.app_evergreen,
     },
+    textlb: {
+      fontSize: 16,
+      alignItems: 'center',
+  },
+  checkin: {
+    flex: 0.3,
+    backgroundColor: colors.app_grey,
+    borderWidth: 5,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
     PrimaryButton: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -43,6 +54,7 @@ export const styles = StyleSheet.create({
       fontWeight: 'bold',
       letterSpacing: 0.25,
       color: colors.app_evergreen_brighter,
+
     },
     ProgressBarContainer: {
       marginTop: 20
