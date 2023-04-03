@@ -47,6 +47,38 @@ export const styles = StyleSheet.create({
     ProgressBarContainer: {
       marginTop: 20
     },
+    tableContainer: { 
+      flex: 1,
+      padding: 16,
+      paddingTop: 100,
+      backgroundColor: '#fff'
+    },
+    tableHead: {
+      height: 40,
+      backgroundColor: 'orange'
+    },
+    tableWrapper: {
+      flexDirection: 'row'
+    },
+    tableTitle: {
+      flex: 1,
+      backgroundColor: '#2ecc71'
+    },
+    tableRow: {
+      height: 28
+    },
+    tableText: {
+      textAlign: 'center'
+    },
+    item: {
+      backgroundColor: '#ededed',
+      padding: 20,
+      marginVertical: 8,
+      marginHorizontal: 16,
+      width: 300,
+      height: 75,
+      alignItems: 'flex-start',
+    },
     // TODO: add styles for the rest of the components, ie primary button,
     // secondary button, text input, display text, headline, title, label, body
     // icons,...

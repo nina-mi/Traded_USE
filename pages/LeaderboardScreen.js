@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
 import React from "react";
+import { Table, Row, Rows, Col, TableWrapper} from "react-native-table-component";
 
 // style
 import { styles } from '../DefinedStyles';
@@ -26,13 +27,23 @@ export default function LeaderboardScreen() {
   const db = getFirestore();
   React.useEffect(() => {
     getSignedInUserPoints()
-  }, [])
+  }, []);
   
   React.useEffect(() => {
     getUserPoints()
-  }, [])
+  }, []);
   
-  const data_array2 = [];
+  const CONTENT = {
+    tableHead: ['Rank', 'Username', 'Points'],
+  tableTitle: ['1', '2', '3', '4', '5'],
+  tableData: [
+    [peopleNames[0], peoplePoints[0]],
+    [peopleNames[1], peoplePoints[1]],
+    [peopleNames[2], peoplePoints[2]],
+    [peopleNames[3], peoplePoints[3]],
+    [peopleNames[4], peoplePoints[4]],
+  ],
+  };
 
 
   async function getSignedInUserPoints() {
@@ -54,7 +65,6 @@ export default function LeaderboardScreen() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      data_array.push(data);
       // console.log(data.displayName, " => ", data.nrOfPoints);
       setPeopleNames(peopleNames => [...peopleNames, data.displayName]);
       setPeoplePoints(peoplePoints => [...peoplePoints, data.nrOfPoints]);
@@ -99,6 +109,27 @@ export default function LeaderboardScreen() {
         <Text>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
         <Text>4. {peopleNames[3]} - {peoplePoints[3]}</Text>
         <Text>5. {peopleNames[4]} - {peoplePoints[4]}</Text>
+        {/* <Table borderStyle={{ borderWidth: 1 }}>
+          <Row
+            data={CONTENT.tableHead}
+            flexArr={[1, 2, 1]}
+            // style={styles.tableHead}
+          />
+          <TableWrapper style={styles.tableWrapper}>
+            <Col
+              data={CONTENT.tableTitle}
+              // style={styles.tableTitle}
+              heightArr={[28, 28]}
+              // textStyle={styles.tableText}
+            />
+            <Rows
+              data={CONTENT.tableData}
+              flexArr={[2, 1]}
+              style={styles.tableRow}
+              // textStyle={styles.tableText}
+            />
+          </TableWrapper>
+      </Table> */}
       </View>      
 
     </View>
