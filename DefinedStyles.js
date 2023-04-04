@@ -88,9 +88,15 @@ export const styles = StyleSheet.create({
       marginVertical: 8,
       marginHorizontal: 16,
       width: 300,
-      height: 75,
-      alignItems: 'flex-start',
+      height: 250,
+      alignItems: 'center',
     },
+    itemText: {
+      marginLeft: '40%',
+      marginTop: '10%',
+      textAlign: 'left',
+    }
+    
     // TODO: add styles for the rest of the components, ie primary button,
     // secondary button, text input, display text, headline, title, label, body
     // icons,...
