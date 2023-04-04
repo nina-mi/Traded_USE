@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         color: colors.app_evergreen,
     },
     textlb: {
-      fontSize: 16,
+      fontSize: 24,
       alignItems: 'center',
   },
   checkin: {

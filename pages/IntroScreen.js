@@ -6,12 +6,12 @@ import { StyleSheet, View, Text, Button, Pressable, Image} from "react-native";
 // style
 import { styles } from '../DefinedStyles';
 //cant find image for some reason
-//const logo = require('./assets/images/logo.jpg');
+
 export default function IntroScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={{flex: 0.3}}>
-            {/*<Image source={logo} />*/}
+            <Image source={require('../assets/images/logo.jpg')} />
             </View>
             <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.7 }}>
             <Text style = {styles.title}>TRADED</Text>

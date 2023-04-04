@@ -42,15 +42,16 @@ export default function LogInScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Fill in your info</Text>
+            <Text style={{fontWeight: 'bold'}}>Fill in your info</Text>
             {/* <Button title="Log in" onPress={() => navigation.navigate('Welcome')} /> */}
             {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
             <View>
-              <Text>Email</Text>
+              <Text style={{fontWeight: 'bold'}}>{'\n'}Email</Text>
               <TextInput onChangeText={(text) => setEmail(text)} placeholder="user@mail.com"/>
             </View>
+
             <View>
-              <Text>Password</Text>
+              <Text style={{fontWeight: 'bold'}}>{'\n'}Password</Text>
               <TextInput onChangeText={(text) => setPassword(text)} placeholder="password123"/>
             </View>
             <Pressable 
