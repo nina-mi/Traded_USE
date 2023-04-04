@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text, Pressable} from "react-native";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
+import { Firestore, getFirestore } from "firebase/firestore";
+import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc, FieldValue} from "firebase/firestore";
 import React from "react";
 //import { Table, Row, Rows, Col, TableWrapper} from "react-native-table-component";
 //import Leaderboard from 'react-native-leaderboard';
@@ -20,12 +20,13 @@ import { styles } from '../DefinedStyles';
 export default function LeaderboardScreen() {
   const auth = getAuth();
   const user = auth.currentUser;
-  let data_array = [];
-  const [userPoints, setUserPoints] = React.useState(55);
+  const [userPoints, setUserPoints] = React.useState(6);
   const [userInfoID, setUserInfoID] = React.useState("");
   const [peopleNames, setPeopleNames] = React.useState([]);
   const [peoplePoints, setPeoplePoints] = React.useState([]);
+  const [count, setCount] = React.useState(0);
   const db = getFirestore();
+
   React.useEffect(() => {
     getSignedInUserPoints()
   }, []);
@@ -48,15 +49,14 @@ export default function LeaderboardScreen() {
 
 
   async function getSignedInUserPoints() {
-    const q = query(collection(db, "userInformation"));
+    const q = query(collection(db, "userInformation"), where("userID", "==", user.uid));
     const querySnapshot = await getDocs(q);
-    let i = 0;
     querySnapshot.forEach((doc) => {
-
+      console.log(doc.id, " => ", doc.data());
       const data = doc.data();
-      if (data.userID === user.uid) {
+      if (data.userID === user.uid && setPeoplePoints != data.nrOfPoints) {
         setUserPoints(data.nrOfPoints);
-        setUserInfoID(data.id);
+        setUserInfoID(doc.id);
         }
     });
   }
@@ -76,14 +76,25 @@ export default function LeaderboardScreen() {
 
   async function checkIn() {
     console.log("got here");
-    const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
-    const docSnap = await getDoc(userInformationRef);
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    }
-    await userInformationRef.update({
-      nrOfPoints: FieldValue.increment(1)
+    const userInformationRef = query(collection(db, "userInformation"), where("userID", "==", user.uid));
+    // const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
+    const docSnap = await getDocs(userInformationRef);
+
+    docSnap.forEach((doc) => {
+      const docRef = doc(db, collection(db, "userInformation"), userInfoID);
+      docRef.update({
+        "nrOfPoints": (peoplePoints + 1)
+        }
+      );
     });
+
+    // await userInformationRef.update({
+    //   "nrOfPoints": (peoplePoints + 1)
+    // });    
+    // await userInformationRef.update(
+    //   "nrOfPoints", FieldValue.increment(1)
+    // );
+
     console.log("Checked in!");
     getSignedInUserPoints();
     

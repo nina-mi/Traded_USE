@@ -14,7 +14,7 @@ import { useEffect } from "react";
 export default function BrowseScreen({ navigation }) {
   const auth = getAuth();
   const user = auth.currentUser;
-  const [image, setImage] = React.useState(false);
+  const [image, setImage] = React.useState(null);
 
   useEffect(() => {
     const storage = getStorage();
@@ -22,14 +22,31 @@ export default function BrowseScreen({ navigation }) {
     getDownloadURL(imageRef)
     .then((url) => {
         setImage(url);
+        console.log(url);
       })
       .catch((e) => console.log('getting downloadURL of image error => ', e));
+    console.log(image);
   }, [])
+
+  const showImage = () => {
+    if (image == null) {
+      return <Image
+        source={require('../assets/images/woocommerce-placeholder.png')}
+        transition={1000} style={{ width: 3*50, height: 4*50 }}
+      />
+    }
+      //<Image source={{ uri: '../assets/images/fast_fashion.jpeg' }} style={{ width: 3*50, height: 4*50 }} />}
+    else {
+      return <Image source={{ uri: image }} style={{ width: 3*50, height: 4*50 }} />
+    }
+  };
+
+
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Browse</Text>
-        <Image source={image}/>
+        {showImage()}
     </View>
   );
 }
