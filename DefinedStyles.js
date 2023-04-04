@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor: colors.app_grey,
     },
+    container2: {
+      flex: 1, 
+      justifyContent: 'center',
+      backgroundColor: colors.app_grey,
+    },
     imageContainer: {
       flex: 1,
       paddingTop: 58,
@@ -32,6 +37,11 @@ export const styles = StyleSheet.create({
       fontSize: 24,
       alignItems: 'center',
   },
+  textblank: {
+    fontSize: 24,
+    alignItems: 'center',
+    color: colors.app_grey,
+},
   checkin: {
     flex: 0.3,
     backgroundColor: colors.app_grey,

@@ -12,7 +12,7 @@ export default function WelcomeBackScreen({ navigation }) {
   user = auth.currentUser;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Welcome back {user.displayName}!</Text>
+        <Text style={{fontWeight: 'bold', fontSize: 25}}>{'\n'}Welcome back {user.displayName}!</Text>
         <Pressable 
           style = {styles.PrimaryButton} 
           onPress={ () => navigation.navigate("TabStackScreen")}>

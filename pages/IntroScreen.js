@@ -5,15 +5,20 @@ import { StyleSheet, View, Text, Button, Pressable, Image} from "react-native";
 
 // style
 import { styles } from '../DefinedStyles';
-//cant find image for some reason
-const logo = require('../assets/images/logo.jpg');
+
 export default function IntroScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <View style={{flex: 0.3}}>
-            <Image source={logo} />
+            
+            <View style={{ width: 300, height: 300, alignItems: 'center',
+        justifyContent: 'center',}}>
+            <Image  resizeMode='contain'
+            style={{ width: 350, height: 300, alignItems: 'center',
+            justifyContent: 'center',}}
+           source={require('../assets/images/logo.jpg')} />
             </View>
-            <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.7 }}>
+
+            <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.5 }}>
             <Text style = {styles.title}>TRADED</Text>
             <Text>Join the movement of sustainable fashion and make a real impact on the environment by trading your clothes</Text>
             {/* <Text>Stop contributing to the cycle of fast fashion and consumerism</Text> */}
@@ -24,7 +29,7 @@ export default function IntroScreen({ navigation }) {
                 onPress={() => navigation.navigate('Sign up')}>
                 <Text style = {styles.ButtonText}>Sign up</Text>
             </Pressable>
-            
+            <Text style={styles.textblank}>ff</Text>
             <Pressable 
                 style = {styles.PrimaryButton} 
                 onPress={() => navigation.navigate('Log in')}>
