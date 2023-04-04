@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, Pressable, FlatList, RefreshControl, ActivityIndicator, Image} from "react-native";
+import { StyleSheet, View, Text, Pressable, FlatList, RefreshControl, ActivityIndicator, Image, InlineImage} from "react-native";
 import Button from '../components/Button';
 import React from "react";
 import { getAuth } from "firebase/auth";
@@ -15,10 +15,11 @@ export default function MyItemsScreen({ navigation }) {
   const auth = getAuth();
   const user = auth.currentUser;
   const db = getFirestore();
-  const [userItems, setUserItems] = React.useState([{itemType: "Your items will appear here", itemSize: " with their photo, type, size ", itemColor: " and color"}]);
+  const [userItems, setUserItems] = React.useState([{itemType: "No items yet.", itemSize: "", itemColor: ""}]);
   const [userItemsRefresh, setUserItemsRefresh] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(true);
   const storage = getStorage();
+  const [empty, setEmpty] = React.useState(true);
 
   React.useEffect(() => {
     getSignedInUserItems();
@@ -34,13 +35,17 @@ export default function MyItemsScreen({ navigation }) {
     const querySnapshot = await getDocs(q);
     await querySnapshot.forEach((doc) => {
       let data = doc.data();
-      const imageURL = getDownloadURL(ref(storage, data.itemPicture));
-      data.image = imageURL;
-      console.log(imageURL);
+      console.log(data.itemPicture);
+      let imageRef = ref(storage, data.itemPicture);
+      getDownloadURL(imageRef).then((url) => {
+        data.image = url;
+        console.log(url);
+      });
       setUserItems(userItems => [...userItems, data]);
     });
     if ( userItems.length == 0) {
-      setUserItems([{itemType: "Your items will appear here", itemSize: " with their photo, type, size ", itemColor: " and color"}]);
+      setUserItems([{itemType: "No items yet.", itemSize: " ", itemColor: " "}]);
+    } else {
     }
     setUserItemsRefresh( userItems.map((item, index) => {
         return {
@@ -69,8 +74,18 @@ export default function MyItemsScreen({ navigation }) {
   
   const Item = ({itemType, itemSize, itemColor, image}) => (
     <View style={styles.item}>
-      <Image source={require('../assets/images/woocommerce-placeholder.png')} style={{ width: 3*20, height: 4*20 }} />
-      <Text style={styles.itemText}>{itemType + ", "+ itemColor+", "+ itemSize}</Text>
+      { itemType=== "No items yet." ?       
+        <Text style={styles.itemText}>
+        <Image source={require('../assets/images/woocommerce-placeholder.png')} 
+        style={{ width: 3*30, height: 4*30 }} />
+      {"     "+itemType + "\n\n\n"}</Text> :
+         <Text style={styles.itemText}>
+        <Image source={{ uri: image }}
+        style={{ width: 3*30, height: 4*30 }} />
+ 
+      {"     "+itemType + ", "+ itemColor+", "+ itemSize + "\n\n\n"}</Text>}
+
+
     </View>
   );
 

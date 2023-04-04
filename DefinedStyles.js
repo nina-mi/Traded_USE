@@ -84,17 +84,19 @@ export const styles = StyleSheet.create({
     },
     item: {
       backgroundColor: '#ededed',
-      padding: 20,
+      paddingLeft: 8,
       marginVertical: 8,
-      marginHorizontal: 16,
+      marginHorizontal: 0,
+      paddingTop: 0,
       width: 300,
-      height: 250,
-      alignItems: 'center',
+      height: 'auto',
+      flexDirection: 'row',
     },
     itemText: {
-      marginLeft: '40%',
-      marginTop: '10%',
       textAlign: 'left',
+      marginBottom: '10%',
+      marginTop: '0%',
+      paddingTop: '0%',
     }
     
     // TODO: add styles for the rest of the components, ie primary button,
