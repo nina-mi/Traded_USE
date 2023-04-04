@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable} from "react-native";
+import { StyleSheet, View, Text, Pressable, ScrollView} from "react-native";
 import { getAuth } from "firebase/auth";
 import { Firestore, getFirestore } from "firebase/firestore";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc, FieldValue} from "firebase/firestore";
@@ -134,7 +134,7 @@ export default function LeaderboardScreen() {
           </TableWrapper>
       </Table> */}
       </View>      
-<View style={{borderBottomColor: 'black',
+<ScrollView style={{borderBottomColor: 'black',
     borderWidth: StyleSheet.hairlineWidth, flex: 0.4}}>
       <Text style = {styles.title}>Complete your daily check-in!</Text>
       <Text>{'\n'}You can earn points by completing your daily check-in, successfully trading clothes with other users, or reaching certain milestones.</Text>
@@ -148,7 +148,7 @@ export default function LeaderboardScreen() {
 
       {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
       
-      </View>
+      </ScrollView>
     </View>
   );
 }

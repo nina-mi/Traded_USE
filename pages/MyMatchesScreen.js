@@ -17,7 +17,7 @@ import { getDatabase, ref, onValue, set } from "firebase/database";
 export default function MyMatchesScreen({ navigation }) {
   const app2 = initializeApp(secondaryAppConfig, "Secondary");
 
-  const [number, setNumber] = React.useState("1793");
+  const [number, setNumber] = React.useState(Math.floor(Math.random() * 9000 + 1000));
 
   // const analytics = getAnalytics();
 
