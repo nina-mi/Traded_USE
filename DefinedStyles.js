@@ -107,8 +107,19 @@ export const styles = StyleSheet.create({
       marginBottom: '10%',
       marginTop: '0%',
       paddingTop: '0%',
-    }
-    
+    },
+    dropdownView3: {
+      marginHorizontal: 10,
+      width: "50%",
+      marginBottom: 15,
+    },
+    dropdown: {
+      borderColor: "#B7B7B7",
+      height: 50,
+    },
+    placeholderStyles: {
+      color: "grey",
+    },
     // TODO: add styles for the rest of the components, ie primary button,
     // secondary button, text input, display text, headline, title, label, body
     // icons,...

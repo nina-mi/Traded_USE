@@ -15,7 +15,9 @@ export default function IntroScreen({ navigation }) {
             <Image  resizeMode='contain'
             style={{ width: 350, height: 300, alignItems: 'center',
             justifyContent: 'center',}}
-           source={require('../assets/images/logo.jpg')} />
+        //    source={require('../assets/images/logo.jpg')} 
+            source={require('../assets/images/logo_changed_bg.png')}
+           />
             </View>
 
             <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.5 }}>

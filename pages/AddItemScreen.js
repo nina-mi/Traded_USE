@@ -9,6 +9,8 @@ import * as ImagePicker from 'expo-image-picker';
 import 'firebase/compat/storage';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
+import {useForm, Controller} from 'react-hook-form';
+import DropDownPicker from "react-native-dropdown-picker";
 
 // style
 import { styles } from '../DefinedStyles';
@@ -17,7 +19,31 @@ export default function AddItemScreen({ navigation }) {
   const [itemColor, setItemColor] = React.useState('');
   const [itemSize, setItemSize] = React.useState('');
   const [itemType, setItemType] = React.useState('');
+  // const [itemTypeOpen, setItemTypeOpen] = React.useState(false);
+  // const [itemTypeValue, setItemTypeValue] = React.useState(null);
+  // const [itemType, setItemType] = React.useState([
+  //   {label: 'Shirt', value: 'Shirt'},
+  //   {label: 'Pants', value: 'Pants'},
+  //   {label: 'Dress', value: 'Dress'},
+  //   {label: 'Skirt', value: 'Skirt'},
+  //   {label: 'Jeans', value: 'Jeans'},
+  //   {label: 'Jacket', value: 'Jacket'},
+  //   {label: 'Sweater', value: 'Sweater'},
+  //   {label: 'Blouse', value: 'Blouse'},	
+  //   {label: 'Coat', value: 'Coat'},
+  //   {label: 'Jumpsuit', value: 'Jumpsuit'},
+  //   {label: 'Shorts', value: 'Shorts'},
+  //   {label: 'Sweatshirt', value: 'Sweatshirt'},
+  //   {label: 'T-Shirt', value: 'T-Shirt'},
+  //   {label: 'Socks', value: 'Socks'},
+  //   {label: 'Tie', value: 'Tie'},
+  //   {label: 'Hat', value: 'Hat'},
+  //   {label: 'Accessory', value: 'Accessory'},
+  //   {label: 'Shoes', value: 'Shoes'},
+  //   {label: 'Other', value: 'Other'},
+  // ]);
   const [image, setImage] = React.useState(null);
+  
   // + add user id to the database => auth.currentUser.uid
   const auth = getAuth();
   const user_uid = auth.currentUser.uid;
@@ -28,7 +54,7 @@ export default function AddItemScreen({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 1,   // 0 means compress for small size, 1 means compress for maximum quality
+      quality: 0,   // 0 means compress for small size, 1 means compress for maximum quality
     });
 
     console.log(result);
@@ -126,6 +152,24 @@ export default function AddItemScreen({ navigation }) {
             <View>
               <Text>Item type</Text>
               <TextInput label={"Item type"} onChangeText={(text) => setItemType(text)} placeholder="dress"/>
+
+                  {/* <View style={styles.dropdownView3}>
+                    <DropDownPicker
+                      style={styles.dropdown}
+                      open={itemTypeOpen}
+                      value={itemTypeValue} //genderValue
+                      items={itemType}
+                      setOpen={setItemTypeOpen}
+                      setValue={setItemTypeValue}
+                      setItems={setItemType}
+                      placeholder="Select item type"
+                      placeholderStyle={styles.placeholderStyles}
+                      // onOpen={}
+                      onChangeValue={onChange}
+                      zIndex={3000}
+                      zIndexInverse={1000}
+                    />
+                  </View> */}
             </View>
             <Text>Upload item picture</Text>
             <Pressable 
