@@ -22,21 +22,20 @@ export default function IntroScreen({ navigation }) {
 
             <View style={{alignItems: 'center', justifyContent: 'center', flex: 0.5 }}>
             <Text style = {styles.title}>TRADED</Text>
-            <Text>Join the movement of sustainable fashion and make a real impact on the environment by trading your clothes</Text>
+            <Text style = {styles.paragraph}>Join the movement of sustainable fashion and make a real impact on the environment by trading your clothes</Text>
             {/* <Text>Stop contributing to the cycle of fast fashion and consumerism</Text> */}
-            <Text>Join the movement of sustainable fashion and make a real impact on the environment{'\n'}</Text>
-            <View style={{ flexDirection:"row" }}> 
-            <Pressable 
-                style = {styles.PrimaryButton} 
-                onPress={() => navigation.navigate('Sign up')}>
-                <Text style = {styles.ButtonText}>Sign up</Text>
-            </Pressable>
-            <Text style={styles.textblank}>ff</Text>
-            <Pressable 
-                style = {styles.PrimaryButton} 
-                onPress={() => navigation.navigate('Log in')}>
-                <Text style = {styles.ButtonText}>Log in</Text>
-            </Pressable>
+            
+            <View style={{ flexDirection:"row", justifyContent: "space-between", width: 330, paddingTop: 20}}> 
+                <Pressable 
+                    style = {styles.PrimaryButton} 
+                    onPress={() => navigation.navigate('Sign up')}>
+                    <Text style = {styles.ButtonText}>Sign up</Text>
+                </Pressable>
+                <Pressable 
+                    style = {styles.PrimaryButton} 
+                    onPress={() => navigation.navigate('Log in')}>
+                    <Text style = {styles.ButtonText}>Log in</Text>
+                </Pressable>
             </View>
             </View>
         </View>

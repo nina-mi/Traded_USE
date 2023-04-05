@@ -104,9 +104,9 @@ export default function LeaderboardScreen() {
     <View style={{ flex: 1, alignItems: 'center'}}>
       
 
-      <View style={{ flex: 0.6, alignItems: 'center'}}>
+      <View style={styles.leaderboardView}>
 
-        <Text style = {styles.title}>{'\n'}Leaderboard: Rank 1-5</Text>
+        <Text style = {styles.title}>Leaderboard: Top 5</Text>
         <Text style = {styles.textlb}>1. {peopleNames[0]} - {peoplePoints[0]}</Text>
         <Text style = {styles.textlb}>2. {peopleNames[1]} - {peoplePoints[1]}</Text>
         <Text style = {styles.textlb}>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
@@ -134,17 +134,19 @@ export default function LeaderboardScreen() {
           </TableWrapper>
       </Table> */}
       </View>      
-<ScrollView style={{borderBottomColor: 'black',
-    borderWidth: StyleSheet.hairlineWidth, flex: 0.4}}>
+    <ScrollView style={{borderBottomColor: 'black',
+      borderWidth: StyleSheet.hairlineWidth, flex: 0.4}}>
       <Text style = {styles.title}>Complete your daily check-in!</Text>
-      <Text>{'\n'}You can earn points by completing your daily check-in, successfully trading clothes with other users, or reaching certain milestones.</Text>
-      <Text>{'\n'}All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
-      <Text style={{fontWeight: 'bold'}}>{'\n'}Your points: {userPoints}{'\n'}</Text>
-      <Pressable 
-        style = {styles.PrimaryButton} 
-        onPress={ checkIn }>
-        <Text style = {styles.ButtonText}>Check in!</Text>
-      </Pressable>
+      <Text style={styles.paragraph}>You can earn points by completing your daily check-in, successfully trading clothes with other users, or reaching certain milestones.</Text>
+      <Text style={styles.paragraph}>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
+      <Text style={{fontWeight: 'bold'}}>Your points: {userPoints}</Text>
+      <View style={styles.buttonView}>
+        <Pressable 
+          style = {styles.PrimaryButtonBig} 
+          onPress={ checkIn }>
+          <Text style = {styles.ButtonText}>Check in!</Text>
+        </Pressable>
+      </View>
 
       {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
       

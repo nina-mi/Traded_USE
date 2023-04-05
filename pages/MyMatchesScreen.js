@@ -42,12 +42,14 @@ const simpleAlertHandler = () => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Press the button below to generate your locker access code</Text>
-        <Pressable 
-              style = {styles.PrimaryButton} 
-              onPress={() => { getRandomNumber(); simpleAlertHandler();generateCode()}}>
-              <Text style = {styles.ButtonText}>Generate</Text>
-            </Pressable>
+        <Text style={styles.paragraph}>Press the button below to generate your locker access code</Text>
+        <View style={styles.buttonView}>
+          <Pressable 
+                style = {styles.PrimaryButtonBig} 
+                onPress={() => { getRandomNumber(); simpleAlertHandler();generateCode()}}>
+                <Text style = {styles.ButtonText}>Generate</Text>
+          </Pressable>
+        </View>
     </View>
 
   );

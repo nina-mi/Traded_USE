@@ -1,15 +1,17 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image, TouchableOpacity, Platform, Blob} from "react-native";
+import { StyleSheet, View, Text, Button, Alert, Pressable, Image, TouchableOpacity, Platform, Blob} from "react-native";
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
+import { TextInput } from "react-native-paper";
 
 // style
 import { styles } from '../DefinedStyles';
+import { colors } from "../Colors";
 
 
 export default function AddProfileInfoScreen({ navigation }) {
@@ -108,27 +110,35 @@ export default function AddProfileInfoScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Just one last step</Text>
-            <Text>Personalize your profile by adding a username and a profile photo!</Text>
-            <View>
-              <Text>Username</Text>
-              <TextInput onChangeText={(text) => setUsername(text)} placeholder="username123"/>
+            <Text style={{fontWeight: 'bold', paddingBottom: 15}}>Just one last step</Text>
+            <Text style={styles.paragraph}>Personalize your profile by adding a username and a profile photo!</Text>
+            <View  style={{paddingTop: 15}}>
+              <Text style={{fontWeight: 'bold'}}>Username</Text>
+              <TextInput onChangeText={(text) => setUsername(text)} placeholder="username123"
+              mode="outlined"
+              style={styles.textInput}
+              activeOutlineColor={colors.app_evergreen_brighter}/>
             </View>
-            <Text>Upload a profile picture</Text>
-            <Pressable 
-                style = {styles.PrimaryButton} 
-                onPress={ pickImage}>
-                <Text style = {styles.ButtonText}>Browse gallery</Text>
-            </Pressable>
+            <Text style={{fontWeight: 'bold', paddingTop: 25}}>Upload a profile picture</Text>
+
+            <View style={styles.buttonView}>
+              <Pressable 
+                  style = {styles.PrimaryButtonBig} 
+                  onPress={ pickImage}>
+                  <Text style = {styles.ButtonText}>Browse gallery</Text>
+              </Pressable>
+            </View>
             {showImage()}
             {/* <Pressable 
                 style = {styles.PrimaryButton} 
                 onPress={ addProfileInfo }>
                 <Text style = {styles.ButtonText}>Save my data</Text>
             </Pressable> */}
-            <TouchableOpacity style={styles.PrimaryButton} onPress={() => {uploadImage(); addNewUserPoints(); sendToNextScreen()}}>
-                <Text style={styles.ButtonText}>Save my data</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonView}>
+              <Pressable style={styles.PrimaryButtonBig} onPress={() => {uploadImage(); addNewUserPoints(); sendToNextScreen()}}>
+                  <Text style={styles.ButtonText}>Save data</Text>
+              </Pressable>
+            </View>
         </View>
     );
 }

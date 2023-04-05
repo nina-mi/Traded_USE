@@ -1,13 +1,15 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable} from "react-native";
+import { StyleSheet, View, Text, Button, Alert, Pressable} from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
 import React from "react";
+import { TextInput } from "react-native-paper";
 
 // style
 import { styles } from '../DefinedStyles';
+import { colors } from "../Colors";
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = React.useState('');
@@ -46,19 +48,32 @@ export default function SignUpScreen({ navigation }) {
             <Text style={{fontWeight: 'bold'}}>{'\n'}Please create an account</Text>
             {/* <Button title="Log in" onPress={() => navigation.navigate('Welcome')} /> */}
             {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
-            <View>
-              <Text style={{fontWeight: 'bold'}}>{'\n'}Email</Text>
-              <TextInput label={"Email"} onChangeText={(text) => setEmail(text)} placeholder="user@mail.com"/>
+            <View  style={{paddingTop: 15}}>
+              <Text style={{fontWeight: 'bold'}}>Email</Text>
+              <TextInput
+              onChangeText={(text) => setEmail(text)} placeholder="user@mail.com"
+              mode="outlined"
+              style={styles.textInput}
+              activeOutlineColor={colors.app_evergreen_brighter}/>
             </View>
-            <View>
-            <Text style={{fontWeight: 'bold'}}>{'\n'}Password</Text>
-              <TextInput label={"Password"} onChangeText={(text) => setPassword(text)} placeholder="password123"/>
+
+            <View  style={{paddingTop: 15}}>
+            <Text style={{fontWeight: 'bold'}}>Password</Text>
+              <TextInput            
+              onChangeText={(text) => setPassword(text)} placeholder="password123"
+              mode="outlined"
+              secureTextEntry={true}
+              style={styles.textInput}
+              activeOutlineColor={colors.app_evergreen_brighter}/>
             </View>
-            <Pressable 
-              style = {styles.PrimaryButton} 
-              onPress={ handleCreateAccount }>
-              <Text style = {styles.ButtonText}>Sign up</Text>
-            </Pressable>
+
+            <View style={styles.buttonView}>
+              <Pressable 
+                style = {styles.PrimaryButton} 
+                onPress={ handleCreateAccount }>
+                <Text style = {styles.ButtonText}>Sign up</Text>
+              </Pressable>
+            </View>
         </View>
     );
   }

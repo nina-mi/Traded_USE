@@ -12,12 +12,14 @@ export default function WelcomeBackScreen({ navigation }) {
   user = auth.currentUser;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{fontWeight: 'bold', fontSize: 25}}>{'\n'}Welcome back {user.displayName}!</Text>
-        <Pressable 
-          style = {styles.PrimaryButton} 
-          onPress={ () => navigation.navigate("TabStackScreen")}>
-          <Text style = {styles.ButtonText}>-></Text>
-        </Pressable>
+        <Text style={styles.browseItemText}>Welcome back {user.displayName}!</Text>
+        <View style={styles.buttonView}>
+          <Pressable 
+            style = {styles.PrimaryButtonBig} 
+            onPress={ () => navigation.navigate("TabStackScreen")}>
+            <Text style = {styles.ButtonText}>-></Text>
+          </Pressable>
+        </View>
     </View>
   );
 }

@@ -7,7 +7,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LogBox } from 'react-native';
 
 // components
-import ImageViewer from './components/ImageViewer';
 // import Button from './components/Button';
 
 // screens

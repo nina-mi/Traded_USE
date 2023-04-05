@@ -1,19 +1,18 @@
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, TextInput, Button, Alert, Pressable, Image} from "react-native";
+import { StyleSheet, View, Text, Button, Alert, Pressable, Image} from "react-native";
 import { getAuth } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebase.config";
 import React from "react";
 import * as ImagePicker from 'expo-image-picker';
 import 'firebase/compat/storage';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
-import {useForm, Controller} from 'react-hook-form';
-import DropDownPicker from "react-native-dropdown-picker";
+import { TextInput } from "react-native-paper";
 
 // style
 import { styles } from '../DefinedStyles';
+import { colors } from "../Colors";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AddItemScreen({ navigation }) {
   const [itemColor, setItemColor] = React.useState('');
@@ -54,7 +53,7 @@ export default function AddItemScreen({ navigation }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 0,   // 0 means compress for small size, 1 means compress for maximum quality
+      quality: 0.6,   // 0 means compress for small size, 1 means compress for maximum quality
     });
 
     console.log(result);
@@ -139,44 +138,42 @@ export default function AddItemScreen({ navigation }) {
 };
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Please add information about your clothing item that you want to trade.</Text>
-            <View>
-              <Text>Item color</Text>
-              <TextInput label={"Item color"} onChangeText={(text) => setItemColor(text)} placeholder="red"/>
+      <ScrollView>
+        <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 25}}>
+            <Text style={styles.paragraph}>Please add information about your clothing item that you want to trade.</Text>
+            <View style={{paddingTop: 15}}>
+              <Text style={{fontWeight: 'bold'}}>Item color</Text>
+              <TextInput
+              onChangeText={(text) => setItemColor(text)} placeholder="red"
+              mode="outlined"
+              style={styles.textInput}
+              activeOutlineColor={colors.app_evergreen_brighter}/>
             </View>
-            <View>
-              <Text>Item size</Text>
-              <TextInput label={"Item size"} onChangeText={(text) => setItemSize(text)} placeholder="M"/>
+            <View  style={{paddingTop: 15}}>
+              <Text style={{fontWeight: 'bold'}}>Item size</Text>
+              <TextInput
+              onChangeText={(text) => setItemSize(text)} placeholder="M"
+              mode="outlined"
+              style={styles.textInput}
+              activeOutlineColor={colors.app_evergreen_brighter}/>
             </View>
-            <View>
-              <Text>Item type</Text>
-              <TextInput label={"Item type"} onChangeText={(text) => setItemType(text)} placeholder="dress"/>
 
-                  {/* <View style={styles.dropdownView3}>
-                    <DropDownPicker
-                      style={styles.dropdown}
-                      open={itemTypeOpen}
-                      value={itemTypeValue} //genderValue
-                      items={itemType}
-                      setOpen={setItemTypeOpen}
-                      setValue={setItemTypeValue}
-                      setItems={setItemType}
-                      placeholder="Select item type"
-                      placeholderStyle={styles.placeholderStyles}
-                      // onOpen={}
-                      onChangeValue={onChange}
-                      zIndex={3000}
-                      zIndexInverse={1000}
-                    />
-                  </View> */}
+            <View  style={{paddingTop: 15}}>
+              <Text style={{fontWeight: 'bold'}}>Item type</Text>
+              <TextInput
+              onChangeText={(text) => setItemType(text)} placeholder="dress"
+              mode="outlined"
+              style={styles.textInput}
+              activeOutlineColor={colors.app_evergreen_brighter}/>
             </View>
-            <Text>Upload item picture</Text>
-            <Pressable 
-                style = {styles.PrimaryButton} 
-                onPress={ pickImage}>
-                <Text style = {styles.ButtonText}>Browse gallery</Text>
-            </Pressable>
+            <Text style={{fontWeight: 'bold', paddingTop: 25}}>Upload item picture</Text>
+            <View style={styles.buttonView}>
+              <Pressable 
+                  style = {styles.PrimaryButtonBig} 
+                  onPress={ pickImage}>
+                  <Text style = {styles.ButtonText}>Browse gallery</Text>
+              </Pressable>
+            </View>
             {// there is quite a well-known bug with expo camera, so I will leave it as a comment for now
             // there is not much time for me to add the camera feature rn
             }
@@ -186,11 +183,14 @@ export default function AddItemScreen({ navigation }) {
                 <Text style = {styles.ButtonText}>Take a photo</Text>
             </Pressable> */}
             {showImage()}
-            <Pressable 
-                style = {styles.PrimaryButton} 
-                onPress={ handleAddItem }>
-                <Text style = {styles.ButtonText}>Add item</Text>
-            </Pressable>
+            <View style={styles.buttonView}>
+              <Pressable 
+                  style = {styles.PrimaryButtonBig} 
+                  onPress={ handleAddItem }>
+                  <Text style = {styles.ButtonText}>Add item</Text>
+              </Pressable>
+            </View>
         </View>
+      </ScrollView>
     );
   }

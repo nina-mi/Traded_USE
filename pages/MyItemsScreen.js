@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, View, Text, Pressable, FlatList, RefreshControl, ActivityIndicator, Image, InlineImage} from "react-native";
+import { StyleSheet, View, Text, Pressable, FlatList, RefreshControl, ActivityIndicator, Image} from "react-native";
 import Button from '../components/Button';
 import React from "react";
 import { getAuth } from "firebase/auth";
@@ -11,7 +11,7 @@ import { getStorage, ref, getDownloadURL} from "firebase/storage";
 // style
 import { styles } from '../DefinedStyles';
 
-export default function MyItemsScreen({ navigation }) {
+export default function MyItemsScreen({navigation}) {
   const auth = getAuth();
   const user = auth.currentUser;
   const db = getFirestore();
@@ -19,11 +19,12 @@ export default function MyItemsScreen({ navigation }) {
   const [userItemsRefresh, setUserItemsRefresh] = React.useState([]);
   const [refreshing, setRefreshing] = React.useState(true);
   const storage = getStorage();
-  const [empty, setEmpty] = React.useState(true);
 
   React.useEffect(() => {
     getSignedInUserItems();
   }, []);
+
+  
 
   // React.useEffect(() => {
   //   display();
@@ -33,6 +34,8 @@ export default function MyItemsScreen({ navigation }) {
     console.log("called this function");
     const q = query(collection(db, "items"), where("userID", "==", user.uid));
     const querySnapshot = await getDocs(q);
+    setUserItems([]);
+    setUserItemsRefresh([]);
     await querySnapshot.forEach((doc) => {
       let data = doc.data();
       console.log(data.itemPicture);
@@ -66,8 +69,6 @@ export default function MyItemsScreen({ navigation }) {
 
   const onRefresh = () => {
     //Clear old data of the list
-    setUserItems([]);
-    setUserItemsRefresh([]);
     //Call the Service to get the latest data
     getSignedInUserItems();
   };
@@ -91,11 +92,13 @@ export default function MyItemsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Pressable 
-        style = {styles.PrimaryButton} 
-        onPress={() => navigation.navigate('Add item')}>
-        <Text style = {styles.ButtonText}>Add item</Text>
-      </Pressable>
+      <View style={styles.buttonView}>
+        <Pressable 
+          style = {styles.PrimaryButtonBig} 
+          onPress={() => navigation.navigate('Add item')}>
+          <Text style = {styles.ButtonText}>Add item</Text>
+        </Pressable>
+      </View>
       {refreshing ? <ActivityIndicator /> : null}
       { refreshing ? null :       <FlatList
         data={userItemsRefresh}

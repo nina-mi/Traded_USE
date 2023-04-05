@@ -32,10 +32,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         fontWeight: 'bold',
         color: colors.app_evergreen,
+        paddingBottom: 20,
+        maxWidth: 300,
     },
     textlb: {
       fontSize: 24,
-      alignItems: 'center',
+      alignSelf: 'baseline',
+      paddingLeft: 45,
+      paddingBottom: 4,
   },
   textblank: {
     fontSize: 24,
@@ -57,6 +61,19 @@ export const styles = StyleSheet.create({
       borderRadius: 4,
       elevation: 3,
       backgroundColor: colors.app_evergreen,
+      width: 140,
+      height: 50,
+    },
+    PrimaryButtonBig: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: colors.app_evergreen,
+      width: 330,
+      height: 50,
     },
     ButtonText: {
       fontSize: 16,
@@ -93,14 +110,16 @@ export const styles = StyleSheet.create({
       textAlign: 'center'
     },
     item: {
-      backgroundColor: '#ededed',
-      paddingLeft: 8,
-      marginVertical: 8,
-      marginHorizontal: 0,
+      backgroundColor: colors.app_white,
+      paddingLeft: 15,
+      marginBottom: 15,
       paddingTop: 0,
-      width: 300,
+      width: 330,
       height: 'auto',
       flexDirection: 'row',
+      borderRadius: 10,
+      borderColor: colors.app_evergreen_brighter,
+      borderWidth: 1,
     },
     itemText: {
       textAlign: 'left',
@@ -120,7 +139,55 @@ export const styles = StyleSheet.create({
     placeholderStyles: {
       color: "grey",
     },
-    // TODO: add styles for the rest of the components, ie primary button,
-    // secondary button, text input, display text, headline, title, label, body
-    // icons,...
+    browseItem: {
+      backgroundColor: colors.app_white,
+      paddingLeft: 0,
+      marginHorizontal: 0,
+      marginTop: 15,
+      width: 330,
+      height: 'auto',
+      paddingBottom: 40,
+      paddingTop: 40,
+      borderRadius: 10,
+      borderColor: colors.app_evergreen_brighter,
+      borderWidth: 1,
+    },
+    browseItemText: {
+      fontSize: 25,
+      alignItems: 'center',
+      fontWeight: 'bold',
+      color: colors.app_black_text_secondary,
+      alignSelf: 'center'
+    },
+    containerBrowse: {
+      flex: 1, 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      backgroundColor: colors.app_grey,
+    },
+    textInput: {
+      width:330,
+    },
+    buttonView: {
+      paddingTop: 25,
+      paddingBottom: 25,
+      width: 330,
+    },
+    paragraph: {
+      width: 330,
+      textAlign: 'justify',
+      paddingBottom: 15,
+    },
+    leaderboardView: { 
+      backgroundColor: colors.app_white,
+
+      alignItems: 'center',
+      borderRadius: 10,
+      borderColor: colors.app_evergreen_brighter,
+      borderWidth: 1,
+      marginTop: 15,
+      paddingBottom: 25,
+      paddingTop: 25,
+      width: 330,
+    },
   });
