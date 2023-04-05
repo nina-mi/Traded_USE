@@ -10,6 +10,7 @@ import { TextInput } from "react-native-paper";
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = React.useState('');
@@ -44,8 +45,9 @@ export default function SignUpScreen({ navigation }) {
   }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{fontWeight: 'bold'}}>{'\n'}Please create an account</Text>
+      <ScrollView>
+        <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 25 }}>
+            <Text style={{fontWeight: 'bold'}}>Please create an account</Text>
             {/* <Button title="Log in" onPress={() => navigation.navigate('Welcome')} /> */}
             {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
             <View  style={{paddingTop: 15}}>
@@ -69,11 +71,12 @@ export default function SignUpScreen({ navigation }) {
 
             <View style={styles.buttonView}>
               <Pressable 
-                style = {styles.PrimaryButton} 
+                style = {styles.PrimaryButtonBig} 
                 onPress={ handleCreateAccount }>
                 <Text style = {styles.ButtonText}>Sign up</Text>
               </Pressable>
             </View>
         </View>
+      </ScrollView>
     );
   }

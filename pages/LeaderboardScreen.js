@@ -20,7 +20,7 @@ import { styles } from '../DefinedStyles';
 export default function LeaderboardScreen() {
   const auth = getAuth();
   const user = auth.currentUser;
-  const [userPoints, setUserPoints] = React.useState(6);
+  const [userPoints, setUserPoints] = React.useState(0);
   const [userInfoID, setUserInfoID] = React.useState("");
   const [peopleNames, setPeopleNames] = React.useState([]);
   const [peoplePoints, setPeoplePoints] = React.useState([]);
@@ -49,12 +49,13 @@ export default function LeaderboardScreen() {
 
 
   async function getSignedInUserPoints() {
+    console.log("called getSignedInUserPoints function");
     const q = query(collection(db, "userInformation"), where("userID", "==", user.uid));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
       const data = doc.data();
-      if (data.userID === user.uid && setPeoplePoints != data.nrOfPoints) {
+      if (data.userID === user.uid && userPoints != data.nrOfPoints) {
         setUserPoints(data.nrOfPoints);
         setUserInfoID(doc.id);
         }
@@ -80,13 +81,13 @@ export default function LeaderboardScreen() {
     // const userInformationRef = doc(collection(db, "userInformation"), userInfoID);
     const docSnap = await getDocs(userInformationRef);
 
-    docSnap.forEach((doc) => {
-      const docRef = doc(db, collection(db, "userInformation"), userInfoID);
-      docRef.update({
-        "nrOfPoints": (peoplePoints + 1)
-        }
-      );
-    });
+    // docSnap.forEach((doc) => {
+    //   const docRef = doc(db, collection(db, "userInformation"), userInfoID);
+    //   docRef.update({
+    //     "nrOfPoints": (peoplePoints + 1)
+    //     }
+    //   );
+    // });
 
     // await userInformationRef.update({
     //   "nrOfPoints": (peoplePoints + 1)
@@ -101,56 +102,32 @@ export default function LeaderboardScreen() {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center'}}>
-      
+    <ScrollView>
+      <View style={{ flex: 1, alignItems: 'center'}}>
+        <View style={styles.leaderboardView}>
+          <Text style = {styles.title}>Leaderboard: Top 5</Text>
+          <Text style = {styles.textlb}>1. {peopleNames[0]} - {peoplePoints[0]}</Text>
+          <Text style = {styles.textlb}>2. {peopleNames[1]} - {peoplePoints[1]}</Text>
+          <Text style = {styles.textlb}>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
+          <Text style = {styles.textlb}>4. {peopleNames[3]} - {peoplePoints[3]}</Text>
+          <Text style = {styles.textlb}>5. {peopleNames[4]} - {peoplePoints[4]}</Text>
+        </View>     
+        
+        <View style={{paddingTop: 25}}>
+          <Text style = {styles.title}>Complete your daily check-in!</Text>
+          <Text style={styles.paragraph}>You can earn points by completing your daily check-in, successfully trading clothes with other users, or reaching certain milestones.</Text>
+          <Text style={styles.paragraph}>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
+          <Text style={{fontWeight: 'bold'}}>Your points: {userPoints}</Text>
+          <View style={styles.buttonView}>
+            <Pressable 
+              style = {styles.PrimaryButtonBig} 
+              onPress={ checkIn }>
+              <Text style = {styles.ButtonText}>Check in!</Text>
+            </Pressable>
+          </View>
+        </View>
 
-      <View style={styles.leaderboardView}>
-
-        <Text style = {styles.title}>Leaderboard: Top 5</Text>
-        <Text style = {styles.textlb}>1. {peopleNames[0]} - {peoplePoints[0]}</Text>
-        <Text style = {styles.textlb}>2. {peopleNames[1]} - {peoplePoints[1]}</Text>
-        <Text style = {styles.textlb}>3. {peopleNames[2]} - {peoplePoints[2]}</Text>
-        <Text style = {styles.textlb}>4. {peopleNames[3]} - {peoplePoints[3]}</Text>
-        <Text style = {styles.textlb}>5. {peopleNames[4]} - {peoplePoints[4]}</Text>
-        {/* <Table borderStyle={{ borderWidth: 1 }}>
-          <Row
-            data={CONTENT.tableHead}
-            flexArr={[1, 2, 1]}
-            // style={styles.tableHead}
-          />
-          <TableWrapper style={styles.tableWrapper}>
-            <Col
-              data={CONTENT.tableTitle}
-              // style={styles.tableTitle}
-              heightArr={[28, 28]}
-              // textStyle={styles.tableText}
-            />
-            <Rows
-              data={CONTENT.tableData}
-              flexArr={[2, 1]}
-              style={styles.tableRow}
-              // textStyle={styles.tableText}
-            />
-          </TableWrapper>
-      </Table> */}
-      </View>      
-    <ScrollView style={{borderBottomColor: 'black',
-      borderWidth: StyleSheet.hairlineWidth, flex: 0.4}}>
-      <Text style = {styles.title}>Complete your daily check-in!</Text>
-      <Text style={styles.paragraph}>You can earn points by completing your daily check-in, successfully trading clothes with other users, or reaching certain milestones.</Text>
-      <Text style={styles.paragraph}>All users are ranked based on the number of points they've earned. So, stay active on the app to be on top of the leaderboard and be a leader in sustainable fashion.</Text>
-      <Text style={{fontWeight: 'bold'}}>Your points: {userPoints}</Text>
-      <View style={styles.buttonView}>
-        <Pressable 
-          style = {styles.PrimaryButtonBig} 
-          onPress={ checkIn }>
-          <Text style = {styles.ButtonText}>Check in!</Text>
-        </Pressable>
       </View>
-
-      {/* <FlatList data={data_array} renderItem={({item}) => <Text>{item.name}</Text>}/> */}
-      
-      </ScrollView>
-    </View>
+    </ScrollView>
   );
 }

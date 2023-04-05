@@ -12,6 +12,7 @@ import { TextInput } from "react-native-paper";
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 export default function AddProfileInfoScreen({ navigation }) {
@@ -38,11 +39,11 @@ export default function AddProfileInfoScreen({ navigation }) {
         if (image == null) {
           return <Image
             source={require('../assets/images/woocommerce-placeholder_square.png')}
-            transition={1000} style={{ width: 3*50, height: 3*50 }}
+            transition={1000} style={styles.profileImage}
           />
         }
         else {
-          return <Image source={{ uri: image }} style={{ width: 3*50, height: 3*50 }} />
+          return <Image source={{ uri: image }} style={styles.profileImage} />
         }
     };
 
@@ -109,7 +110,8 @@ export default function AddProfileInfoScreen({ navigation }) {
 
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <ScrollView>
+        <View style={{alignItems: 'center', justifyContent: 'center', paddingTop: 65}}>
             <Text style={{fontWeight: 'bold', paddingBottom: 15}}>Just one last step</Text>
             <Text style={styles.paragraph}>Personalize your profile by adding a username and a profile photo!</Text>
             <View  style={{paddingTop: 15}}>
@@ -129,16 +131,12 @@ export default function AddProfileInfoScreen({ navigation }) {
               </Pressable>
             </View>
             {showImage()}
-            {/* <Pressable 
-                style = {styles.PrimaryButton} 
-                onPress={ addProfileInfo }>
-                <Text style = {styles.ButtonText}>Save my data</Text>
-            </Pressable> */}
             <View style={styles.buttonView}>
               <Pressable style={styles.PrimaryButtonBig} onPress={() => {uploadImage(); addNewUserPoints(); sendToNextScreen()}}>
                   <Text style={styles.ButtonText}>Save data</Text>
               </Pressable>
             </View>
         </View>
+      </ScrollView>
     );
 }

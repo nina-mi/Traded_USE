@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
       borderRadius: 4,
       elevation: 3,
       backgroundColor: colors.app_evergreen,
-      width: 140,
+      width: 130,
       height: 50,
     },
     PrimaryButtonBig: {
@@ -189,5 +189,13 @@ export const styles = StyleSheet.create({
       paddingBottom: 25,
       paddingTop: 25,
       width: 330,
+    },
+    profileImage: {
+      width: 3*50,
+      height: 3*50,
+      borderRadius: 3*50/2,
+      overflow: "hidden",
+      borderWidth: 2,
+      borderColor: colors.app_evergreen_brighter
     },
   });

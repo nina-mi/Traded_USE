@@ -10,6 +10,7 @@ import React from "react";
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function LogInScreen({ navigation }) {
   const [email, setEmail] = React.useState('');
@@ -43,14 +44,14 @@ export default function LogInScreen({ navigation }) {
   }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <ScrollView>
+        <View style={{alignItems: 'center', justifyContent: 'center', paddingTop: 25 }}>
             <Text style={{fontWeight: 'bold'}}>Fill in your credentials</Text>
             {/* <Button title="Log in" onPress={() => navigation.navigate('Welcome')} /> */}
             {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
             <View  style={{paddingTop: 15}}>
               <Text style={{fontWeight: 'bold'}}>Email</Text>
               <TextInput
-                left={<TextInput.Icon name="account" />}
                 mode="outlined"
                 style={styles.textInput}
                 activeOutlineColor={colors.app_evergreen_brighter}
@@ -61,8 +62,6 @@ export default function LogInScreen({ navigation }) {
             <View  style={{paddingTop: 15}}>
               <Text style={{fontWeight: 'bold'}}>{'\n'}Password</Text>
               <TextInput
-                left={<TextInput.Icon name="form-textbox-password" iconColor={colors.app_evergreen_brighter}
-                  />}
                 mode="outlined"
                 secureTextEntry={true}
                 style={styles.textInput}
@@ -77,6 +76,7 @@ export default function LogInScreen({ navigation }) {
               </Pressable>
             </View>
         </View>
+      </ScrollView>
     );
   }
 
