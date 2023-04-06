@@ -2,11 +2,13 @@ import { NavigationContainer } from "@react-navigation/native";
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, Button, Pressable, Image} from "react-native";
 //import Button from '../components/Button';
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 
 export default function IntroScreen({ navigation }) {
+    LogBox.ignoreLogs(['Warning: ...']);
     return (
         <View style={styles.container}>
             

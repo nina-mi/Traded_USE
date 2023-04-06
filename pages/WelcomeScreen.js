@@ -3,12 +3,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StyleSheet, View, Text, Button, Pressable} from "react-native";
 // import Button from '../components/Button';
 import { getAuth } from "firebase/auth";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 
 
 export default function WelcomeScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={styles.title}>Welcome</Text>

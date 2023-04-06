@@ -6,13 +6,16 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config"
 import React from "react";
+import { ScrollView } from "react-native-gesture-handler";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
-import { ScrollView } from "react-native-gesture-handler";
+
 
 export default function LogInScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 

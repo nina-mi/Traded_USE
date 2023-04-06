@@ -26,7 +26,6 @@ import styles from './DefinedStyles';
 const Stack = createNativeStackNavigator();
 
 // Ignore log notification by message
-LogBox.ignoreLogs(['Warning: ...']);
 
 // export default function App() {
 //   return (
@@ -46,6 +45,7 @@ LogBox.ignoreLogs(['Warning: ...']);
 
 
 export default function App() {
+  LogBox.ignoreLogs(['Warning: ...']);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Intro">

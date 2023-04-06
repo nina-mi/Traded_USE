@@ -8,12 +8,14 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 
 
 export default function BrowseScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
   const auth = getAuth();
   const user = auth.currentUser;
   const db = getFirestore();

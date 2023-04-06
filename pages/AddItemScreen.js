@@ -8,13 +8,16 @@ import 'firebase/compat/storage';
 import { getStorage, ref, uploadBytes} from "firebase/storage";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { TextInput } from "react-native-paper";
+import { ScrollView } from "react-native-gesture-handler";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
-import { ScrollView } from "react-native-gesture-handler";
+
 
 export default function AddItemScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
   const [itemColor, setItemColor] = React.useState('');
   const [itemSize, setItemSize] = React.useState('');
   const [itemType, setItemType] = React.useState('');

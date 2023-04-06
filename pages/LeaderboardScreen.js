@@ -3,8 +3,7 @@ import { getAuth } from "firebase/auth";
 import { Firestore, getFirestore } from "firebase/firestore";
 import { collection, query, where, doc, getDoc, getDocs, orderBy, limit, updateDoc, FieldValue} from "firebase/firestore";
 import React from "react";
-//import { Table, Row, Rows, Col, TableWrapper} from "react-native-table-component";
-//import Leaderboard from 'react-native-leaderboard';
+import { LogBox } from 'react-native';
 // style
 
 import { styles } from '../DefinedStyles';
@@ -18,6 +17,7 @@ import { styles } from '../DefinedStyles';
 // }
 
 export default function LeaderboardScreen() {
+  LogBox.ignoreLogs(['Warning: ...']);
   const auth = getAuth();
   const user = auth.currentUser;
   const [userPoints, setUserPoints] = React.useState(0);

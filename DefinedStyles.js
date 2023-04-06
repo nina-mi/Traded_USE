@@ -195,7 +195,7 @@ export const styles = StyleSheet.create({
       height: 3*50,
       borderRadius: 3*50/2,
       overflow: "hidden",
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: colors.app_evergreen_brighter
     },
   });

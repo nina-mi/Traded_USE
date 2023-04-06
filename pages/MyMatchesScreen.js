@@ -7,6 +7,7 @@ import { getStorage, uploadBytes} from "firebase/storage";
 import firebase from 'firebase/app';
 import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
@@ -15,6 +16,7 @@ import { getDatabase, ref, onValue, set } from "firebase/database";
 // import { getAnalytics } from "firebase/analytics";
 
 export default function MyMatchesScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
   const app2 = initializeApp(secondaryAppConfig, "Secondary");
 
   const [number, setNumber] = React.useState(Math.floor(Math.random() * 9000 + 1000));

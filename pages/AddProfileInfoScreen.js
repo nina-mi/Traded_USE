@@ -8,14 +8,17 @@ import { getStorage, ref, uploadBytes} from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { TextInput } from "react-native-paper";
+import { ScrollView } from "react-native-gesture-handler";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
-import { ScrollView } from "react-native-gesture-handler";
+
 
 
 export default function AddProfileInfoScreen({ navigation }) {
+    LogBox.ignoreLogs(['Warning: ...']);
     const auth = getAuth();
     const [username, setUsername] = React.useState('');
     const [image, setImage] = React.useState(null);

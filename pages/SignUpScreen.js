@@ -6,13 +6,18 @@ import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase.config";
 import React from "react";
 import { TextInput } from "react-native-paper";
+import { ScrollView } from "react-native-gesture-handler";
+import { LogBox } from 'react-native';
 
 // style
 import { styles } from '../DefinedStyles';
 import { colors } from "../Colors";
-import { ScrollView } from "react-native-gesture-handler";
+
 
 export default function SignUpScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from @react-native-async-storage/async-storage instead of react-native. See']);
+  LogBox.ignoreLogs(['BottomTabNavigator ...']);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
